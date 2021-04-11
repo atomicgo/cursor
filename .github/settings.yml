@@ -4,7 +4,7 @@ repository:
   # See https://developer.github.com/v3/repos/#edit for all available settings.
 
   # A short description of the repository that will show up on GitHub
-  description: 🔹 Golang module
+  description: 🔹 Golang module to utilize ANSI functions, like moving the cursor
 
   # A comma-separated list of topics to set on the repository
   topics: atomicgo, go, golang, golang-library
