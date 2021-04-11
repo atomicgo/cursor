@@ -1,25 +1,25 @@
-<h1 align="center">AtomicGo | template</h1>
+<h1 align="center">AtomicGo | cursor</h1>
 
 <p align="center">
 
-<a href="https://github.com/atomicgo/template/releases">
-<img src="https://img.shields.io/github/v/release/atomicgo/template?style=flat-square" alt="Latest Release">
+<a href="https://github.com/atomicgo/cursor/releases">
+<img src="https://img.shields.io/github/v/release/atomicgo/cursor?style=flat-square" alt="Latest Release">
 </a>
 
-<a href="https://codecov.io/gh/atomicgo/template" target="_blank">
-<img src="https://img.shields.io/github/workflow/status/atomicgo/template/Go?label=tests&style=flat-square" alt="Tests">
+<a href="https://codecov.io/gh/atomicgo/cursor" target="_blank">
+<img src="https://img.shields.io/github/workflow/status/atomicgo/cursor/Go?label=tests&style=flat-square" alt="Tests">
 </a>
 
-<a href="https://codecov.io/gh/atomicgo/template" target="_blank">
-<img src="https://img.shields.io/codecov/c/gh/atomicgo/template?color=magenta&logo=codecov&style=flat-square" alt="Coverage">
+<a href="https://codecov.io/gh/atomicgo/cursor" target="_blank">
+<img src="https://img.shields.io/codecov/c/gh/atomicgo/cursor?color=magenta&logo=codecov&style=flat-square" alt="Coverage">
 </a>
 
-<a href="https://codecov.io/gh/atomicgo/template">
-<!-- unittestcount:start --><img src="https://img.shields.io/badge/Unit_Tests-1-magenta?style=flat-square" alt="Unit test count"><!-- unittestcount:end -->
+<a href="https://codecov.io/gh/atomicgo/cursor">
+<!-- unittestcount:start --><img src="https://img.shields.io/badge/Unit_Tests-16-magenta?style=flat-square" alt="Unit test count"><!-- unittestcount:end -->
 </a>
 
-<a href="https://github.com/atomicgo/template/issues">
-<img src="https://img.shields.io/github/issues/atomicgo/template.svg?style=flat-square" alt="Issues">
+<a href="https://github.com/atomicgo/cursor/issues">
+<img src="https://img.shields.io/github/issues/atomicgo/cursor.svg?style=flat-square" alt="Issues">
 </a>
 
 <a href="https://opensource.org/licenses/MIT" target="_blank">
@@ -33,7 +33,7 @@
 <p align="center">
 <strong><a href="#install">Get The Module</a></strong>
 |
-<strong><a href="https://pkg.go.dev/github.com/atomicgo/template" target="_blank">Documentation</a></strong>
+<strong><a href="https://pkg.go.dev/github.com/atomicgo/cursor" target="_blank">Documentation</a></strong>
 |
 <strong><a href="https://github.com/atomicgo/atomicgo/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></strong>
 |
@@ -48,33 +48,126 @@
 
 ## Description
 
-Package template is used to generate new AtomicGo repositories.
-
-Write the description of the module here. You can use **markdown**! This
-description should clearly explain what the package does.
-
-Example description: https://golang.org/src/encoding/gob/doc.go
+Package cursor contains methods to move the cursor inside a terminal.
 
 ## Install
 
 ```console
 # Execute this command inside your project
-go get -u github.com/atomicgo/template
+go get -u github.com/atomicgo/cursor
 ```
 
 ```go
 // Add this to your imports
-import "github.com/atomicgo/template"
+import "github.com/atomicgo/cursor"
 ```
 
 ## Usage
 
-#### func  HelloWorld
+#### func  ClearLine
 
 ```go
-func HelloWorld() string
+func ClearLine()
 ```
-HelloWorld returns `Hello, World!`.
+
+#### func  ClearLines
+
+```go
+func ClearLines(n int)
+```
+
+#### func  ClearScreen
+
+```go
+func ClearScreen()
+```
+
+#### func  CloseAlternativeScreen
+
+```go
+func CloseAlternativeScreen()
+```
+
+#### func  Down
+
+```go
+func Down(n int)
+```
+Down moves the cursor n cells down. If the cursor is already at the edge of the
+screen, this has no effect.
+
+#### func  Hide
+
+```go
+func Hide()
+```
+
+#### func  Left
+
+```go
+func Left(n int)
+```
+Left moves the cursor n cells left. If the cursor is already at the edge of the
+screen, this has no effect.
+
+#### func  Move
+
+```go
+func Move(row int, column int)
+```
+Move moves the cursor to a specific row and column.
+
+#### func  NextLine
+
+```go
+func NextLine(n int)
+```
+
+#### func  OpenAlternativeScreen
+
+```go
+func OpenAlternativeScreen()
+```
+
+#### func  PrevLine
+
+```go
+func PrevLine(n int)
+```
+
+#### func  RestorePosition
+
+```go
+func RestorePosition()
+```
+
+#### func  Right
+
+```go
+func Right(n int)
+```
+Right moves the cursor n cells right. If the cursor is already at the edge of
+the screen, this has no effect.
+
+#### func  SavePosition
+
+```go
+func SavePosition()
+```
+
+#### func  Show
+
+```go
+func Show()
+```
+
+#### func  Up
+
+```go
+func Up(n int)
+```
+Up moves the cursor n cells up. If the cursor is already at the edge of the
+screen, this has no effect.
 
 ---
 
