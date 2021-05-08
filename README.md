@@ -103,7 +103,7 @@ DownAndClear moves the cursor down by n lines, then clears the line.
 ```go
 func Hide()
 ```
-Hide the cursor. Don't forget to show the cursor atleast at the end of your
+Hide the cursor. Don't forget to show the cursor at least at the end of your
 application with Show. Otherwise the user might have a terminal with a
 permanently hidden cursor, until he reopens the terminal.
 
@@ -127,7 +127,7 @@ Left moves the cursor n characters to the left relative to the current position.
 ```go
 func Move(x, y int)
 ```
-Move moves the cursor relative by x and y
+Move moves the cursor relative by x and y.
 
 #### func  Right
 
@@ -142,8 +142,8 @@ position.
 ```go
 func Show()
 ```
-Show the cursor if it was hidden previously. Don't forget to show the cursor
-atleast at the end of your application. Otherwise the user might have a terminal
+Show the cursor if it was hidden previously. Don't forget to show the cursor at
+least at the end of your application. Otherwise the user might have a terminal
 with a permanently hidden cursor, until he reopens the terminal.
 
 #### func  StartOfLine
