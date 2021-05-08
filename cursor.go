@@ -15,7 +15,11 @@ func Up(n int) {
 // Down moves the cursor n lines down relative to the current position.
 func Down(n int) {
 	fmt.Printf("\x1b[%dB", n)
-	height -= n
+	if height-n < 0 {
+		height = 0
+	} else {
+		height -= n
+	}
 }
 
 // Right moves the cursor n characters to the right relative to the current position.
