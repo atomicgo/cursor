@@ -1,19 +1,11 @@
 package cursor
 
-import (
-	"runtime"
-)
-
 var height int
 
 // Bottom moves the cursor to the bottom of the terminal.
 // This is done by calculating how many lines were moved by Up and Down.
 func Bottom() {
-	if runtime.GOOS == "windows" {
-		Down(height)
-	} else {
-		Down(height)
-	}
+	Down(height)
 	StartOfLine()
 	height = 0
 }
@@ -47,7 +39,7 @@ func DownAndClear(n int) {
 	ClearLine()
 }
 
-// Move moves the cursor relative by x and y
+// Move moves the cursor relative by x and y.
 func Move(x, y int) {
 	if x > 0 {
 		Right(x)

@@ -65,7 +65,7 @@ func HorizontalAbsolute(n int) {
 }
 
 // Show the cursor if it was hidden previously.
-// Don't forget to show the cursor atleast at the end of your application.
+// Don't forget to show the cursor at least at the end of your application.
 // Otherwise the user might have a terminal with a permanently hidden cursor, until he reopens the terminal.
 func Show() {
 	handle := syscall.Handle(os.Stdout.Fd())
@@ -78,7 +78,7 @@ func Show() {
 }
 
 // Hide the cursor.
-// Don't forget to show the cursor atleast at the end of your application with Show.
+// Don't forget to show the cursor at least at the end of your application with Show.
 // Otherwise the user might have a terminal with a permanently hidden cursor, until he reopens the terminal.
 func Hide() {
 	handle := syscall.Handle(os.Stdout.Fd())
