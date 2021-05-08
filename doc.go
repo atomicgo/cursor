@@ -1,9 +1,7 @@
 /*
-Package template is used to generate new AtomicGo repositories.
+Package cursor contains cross-platform methods to move the terminal cursor in different directions.
+This package can be used to create interactive CLI tools and games, live charts, algorithm visualizations and other updatable output of any kind.
 
-Write the description of the module here. You can use **markdown**!
-This description should clearly explain what the package does.
-
-Example description: https://golang.org/src/encoding/gob/doc.go
+Special thanks to github.com/k0kubun/go-ansi which this project is based on.
 */
-package template
+package cursor
