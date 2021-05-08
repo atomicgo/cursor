@@ -93,8 +93,8 @@ func CloseAlternativeScreen()
 ```go
 func Down(n int)
 ```
-Down moves the cursor n cells down. If the cursor is already at the edge of the
-screen, this has no effect.
+
+Down moves the cursor n cells down. If the cursor is already at the edge of the screen, this has no effect.
 
 #### func  Hide
 
@@ -107,14 +107,15 @@ func Hide()
 ```go
 func Left(n int)
 ```
-Left moves the cursor n cells left. If the cursor is already at the edge of the
-screen, this has no effect.
+
+Left moves the cursor n cells left. If the cursor is already at the edge of the screen, this has no effect.
 
 #### func  Move
 
 ```go
 func Move(row int, column int)
 ```
+
 Move moves the cursor to a specific row and column.
 
 #### func  NextLine
@@ -146,8 +147,8 @@ func RestorePosition()
 ```go
 func Right(n int)
 ```
-Right moves the cursor n cells right. If the cursor is already at the edge of
-the screen, this has no effect.
+
+Right moves the cursor n cells right. If the cursor is already at the edge of the screen, this has no effect.
 
 #### func  SavePosition
 
@@ -166,8 +167,8 @@ func Show()
 ```go
 func Up(n int)
 ```
-Up moves the cursor n cells up. If the cursor is already at the edge of the
-screen, this has no effect.
+
+Up moves the cursor n cells up. If the cursor is already at the edge of the screen, this has no effect.
 
 ---
 

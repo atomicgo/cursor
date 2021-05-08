@@ -1,110 +1,57 @@
+// +build !windows
+
 package cursor
 
 import (
 	"fmt"
-	"strings"
+	"path/filepath"
 )
 
-const (
-	ansiPrefix = "\x1b["
-
-	upTemplate    = "%dA"
-	downTemplate  = "%dB"
-	leftTemplate  = "%dD"
-	rightTemplate = "%dC"
-
-	nextLineTemplate     = "%dE"
-	previousLineTemplate = "%dF"
-
-	positionTemplate        = "%d;%dH"
-	savePositionTemplate    = "s"
-	restorePositionTemplate = "u"
-
-	openAlternativeScreenTemplate  = "?1049h"
-	closeAlternativeScreenTemplate = "?1049l"
-
-	clearDisplayTemplate = "%dJ"
-	clearLineTemplate    = "%dK"
-
-	showTemplate = "?25h"
-	hideTemplate = "?25l"
-)
-
-// Move cursor.
-
-// Up moves the cursor n cells up. If the cursor is already at the edge of the screen, this has no effect.
+// Up moves the cursor n lines up relative to the current position.
 func Up(n int) {
-	fmt.Printf(ansiPrefix+upTemplate, n)
+	fmt.Printf("\x1b[%dA", n)
+	height += n
 }
 
-// Down moves the cursor n cells down. If the cursor is already at the edge of the screen, this has no effect.
+// Down moves the cursor n lines down relative to the current position.
 func Down(n int) {
-	fmt.Printf(ansiPrefix+downTemplate, n)
+	fmt.Printf("\x1b[%dB", n)
+	height -= n
 }
 
-// Left moves the cursor n cells left. If the cursor is already at the edge of the screen, this has no effect.
-func Left(n int) {
-	fmt.Printf(ansiPrefix+leftTemplate, n)
-}
-
-// Right moves the cursor n cells right. If the cursor is already at the edge of the screen, this has no effect.
+// Right moves the cursor n characters to the right relative to the current position.
 func Right(n int) {
-	fmt.Printf(ansiPrefix+rightTemplate, n)
+	fmt.Printf("\x1b[%dC", n)
 }
 
-// Move moves the cursor to a specific row and column.
-func Move(row int, column int) {
-	fmt.Printf(ansiPrefix+positionTemplate, row, column)
+// Left moves the cursor n characters to the left relative to the current position.
+func Left(n int) {
+	fmt.Printf("\x1b[%dD", n)
 }
 
-func NextLine(n int) {
-	fmt.Printf(ansiPrefix+nextLineTemplate, n)
+// HorizontalAbsolute moves the cursor to n horizontally.
+// The position n is absolute to the start of the line.
+func HorizontalAbsolute(n int) {
+	n += 1 // Moves the line to the character after n
+	fmt.Printf("\x1b[%dG", n)
+	filepath.Base()
 }
 
-func PrevLine(n int) {
-	fmt.Printf(ansiPrefix+previousLineTemplate, n)
-}
-
-func SavePosition() {
-	fmt.Print(ansiPrefix + savePositionTemplate)
-}
-
-func RestorePosition() {
-	fmt.Print(ansiPrefix + restorePositionTemplate)
-}
-
-// Alternative screen.
-
-func OpenAlternativeScreen() {
-	fmt.Print(ansiPrefix + openAlternativeScreenTemplate)
-}
-
-func CloseAlternativeScreen() {
-	fmt.Print(ansiPrefix + closeAlternativeScreenTemplate)
-}
-
-// Erase
-
-func ClearScreen() {
-	fmt.Printf(ansiPrefix+clearDisplayTemplate, 2)
-	Move(1, 1)
-}
-
-func ClearLine() {
-	fmt.Printf(ansiPrefix+clearLineTemplate, 2)
-}
-
-func ClearLines(n int) {
-	clear := fmt.Sprintf(ansiPrefix+clearLineTemplate, 2)
-	fmt.Print(clear + strings.Repeat(fmt.Sprintf(ansiPrefix+upTemplate, 1)+clear, n))
-}
-
-// Show and hide cursor
-
+// Show the cursor if it was hidden previously.
+// Don't forget to show the cursor atleast at the end of your application.
+// Otherwise the user might have a terminal with a permanently hidden cursor, until he reopens the terminal.
 func Show() {
-	fmt.Printf(ansiPrefix + showTemplate)
+	fmt.Print("\x1b[?25h")
 }
 
+// Hide the cursor.
+// Don't forget to show the cursor atleast at the end of your application with Show.
+// Otherwise the user might have a terminal with a permanently hidden cursor, until he reopens the terminal.
 func Hide() {
-	fmt.Printf(ansiPrefix + hideTemplate)
+	fmt.Print("\x1b[?25l")
+}
+
+// ClearLine clears the current line and moves the cursor to it's start position.
+func ClearLine() {
+	fmt.Print("\x1b[2K")
 }
