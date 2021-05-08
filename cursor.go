@@ -4,7 +4,6 @@ package cursor
 
 import (
 	"fmt"
-	"path/filepath"
 )
 
 // Up moves the cursor n lines up relative to the current position.
@@ -34,7 +33,6 @@ func Left(n int) {
 func HorizontalAbsolute(n int) {
 	n += 1 // Moves the line to the character after n
 	fmt.Printf("\x1b[%dG", n)
-	filepath.Base()
 }
 
 // Show the cursor if it was hidden previously.
