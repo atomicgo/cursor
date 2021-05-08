@@ -55,3 +55,17 @@ func Move(x, y int) {
 		Down(y)
 	}
 }
+
+// ClearLinesUp clears n lines upwards from the current position and moves the cursor.
+func ClearLinesUp(n int) {
+	for i := 0; i < n; i++ {
+		UpAndClear(1)
+	}
+}
+
+// ClearLinesDown clears n lines downwards from the current position and moves the cursor.
+func ClearLinesDown(n int) {
+	for i := 0; i < n; i++ {
+		DownAndClear(1)
+	}
+}
