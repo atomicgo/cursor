@@ -15,7 +15,7 @@
 </a>
 
 <a href="https://codecov.io/gh/atomicgo/cursor">
-<!-- unittestcount:start --><img src="https://img.shields.io/badge/Unit_Tests-16-magenta?style=flat-square" alt="Unit test count"><!-- unittestcount:end -->
+<!-- unittestcount:start --><img src="https://img.shields.io/badge/Unit_Tests-0-magenta?style=flat-square" alt="Unit test count"><!-- unittestcount:end -->
 </a>
 
 <a href="https://github.com/atomicgo/cursor/issues">
@@ -48,7 +48,12 @@
 
 ## Description
 
-Package cursor contains methods to move the cursor inside a terminal.
+Package cursor contains cross-platform methods to move the terminal cursor in
+different directions. This package can be used to create interactive CLI tools
+and games, live charts, algorithm visualization and other updatable output of
+any kind.
+
+Special thanks to github.com/k0kubun/go-ansi which this project is based on.
 
 ## Install
 
@@ -64,111 +69,119 @@ import "github.com/atomicgo/cursor"
 
 ## Usage
 
+#### func  Bottom
+
+```go
+func Bottom()
+```
+Bottom moves the cursor to the bottom of the terminal. This is done by
+calculating how many lines were moved by Up and Down.
+
 #### func  ClearLine
 
 ```go
 func ClearLine()
 ```
-
-#### func  ClearLines
-
-```go
-func ClearLines(n int)
-```
-
-#### func  ClearScreen
-
-```go
-func ClearScreen()
-```
-
-#### func  CloseAlternativeScreen
-
-```go
-func CloseAlternativeScreen()
-```
+ClearLine clears the current line and moves the cursor to it's start position.
 
 #### func  Down
 
 ```go
 func Down(n int)
 ```
+Down moves the cursor n lines down relative to the current position.
 
-Down moves the cursor n cells down. If the cursor is already at the edge of the screen, this has no effect.
+#### func  DownAndClear
+
+```go
+func DownAndClear(n int)
+```
+DownAndClear moves the cursor down by n lines, then clears the line.
 
 #### func  Hide
 
 ```go
 func Hide()
 ```
+Hide the cursor. Don't forget to show the cursor atleast at the end of your
+application with Show. Otherwise the user might have a terminal with a
+permanently hidden cursor, until he reopens the terminal.
+
+#### func  HorizontalAbsolute
+
+```go
+func HorizontalAbsolute(n int)
+```
+HorizontalAbsolute moves the cursor to n horizontally. The position n is
+absolute to the start of the line.
 
 #### func  Left
 
 ```go
 func Left(n int)
 ```
-
-Left moves the cursor n cells left. If the cursor is already at the edge of the screen, this has no effect.
+Left moves the cursor n characters to the left relative to the current position.
 
 #### func  Move
 
 ```go
-func Move(row int, column int)
+func Move(x, y int)
 ```
-
-Move moves the cursor to a specific row and column.
-
-#### func  NextLine
-
-```go
-func NextLine(n int)
-```
-
-#### func  OpenAlternativeScreen
-
-```go
-func OpenAlternativeScreen()
-```
-
-#### func  PrevLine
-
-```go
-func PrevLine(n int)
-```
-
-#### func  RestorePosition
-
-```go
-func RestorePosition()
-```
+Move moves the cursor relative by x and y
 
 #### func  Right
 
 ```go
 func Right(n int)
 ```
-
-Right moves the cursor n cells right. If the cursor is already at the edge of the screen, this has no effect.
-
-#### func  SavePosition
-
-```go
-func SavePosition()
-```
+Right moves the cursor n characters to the right relative to the current
+position.
 
 #### func  Show
 
 ```go
 func Show()
 ```
+Show the cursor if it was hidden previously. Don't forget to show the cursor
+atleast at the end of your application. Otherwise the user might have a terminal
+with a permanently hidden cursor, until he reopens the terminal.
+
+#### func  StartOfLine
+
+```go
+func StartOfLine()
+```
+StartOfLine moves the cursor to the start of the current line.
+
+#### func  StartOfLineDown
+
+```go
+func StartOfLineDown(n int)
+```
+StartOfLineDown moves the cursor down by n lines, then moves to cursor to the
+start of the line.
+
+#### func  StartOfLineUp
+
+```go
+func StartOfLineUp(n int)
+```
+StartOfLineUp moves the cursor up by n lines, then moves to cursor to the start
+of the line.
 
 #### func  Up
 
 ```go
 func Up(n int)
 ```
+Up moves the cursor n lines up relative to the current position.
 
-Up moves the cursor n cells up. If the cursor is already at the edge of the screen, this has no effect.
+#### func  UpAndClear
+
+```go
+func UpAndClear(n int)
+```
+UpAndClear moves the cursor up by n lines, then clears the line.
 
 ---
 
