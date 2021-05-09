@@ -33,7 +33,7 @@
 <p align="center">
 <strong><a href="#install">Get The Module</a></strong>
 |
-<strong><a href="https://pkg.go.dev/github.com/atomicgo/cursor" target="_blank">Documentation</a></strong>
+<strong><a href="https://pkg.go.dev/github.com/atomicgo/cursor#section-documentation" target="_blank">Documentation</a></strong>
 |
 <strong><a href="https://github.com/atomicgo/atomicgo/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></strong>
 |
@@ -83,6 +83,22 @@ calculating how many lines were moved by Up and Down.
 func ClearLine()
 ```
 ClearLine clears the current line and moves the cursor to it's start position.
+
+#### func  ClearLinesDown
+
+```go
+func ClearLinesDown(n int)
+```
+ClearLinesDown clears n lines downwards from the current position and moves the
+cursor.
+
+#### func  ClearLinesUp
+
+```go
+func ClearLinesUp(n int)
+```
+ClearLinesUp clears n lines upwards from the current position and moves the
+cursor.
 
 #### func  Down
 
@@ -182,6 +198,37 @@ Up moves the cursor n lines up relative to the current position.
 func UpAndClear(n int)
 ```
 UpAndClear moves the cursor up by n lines, then clears the line.
+
+#### type Area
+
+```go
+type Area struct {
+}
+```
+
+Area displays content which can be updated on the fly. You can use this to
+create live output, charts, dropdowns, etc.
+
+#### func  NewArea
+
+```go
+func NewArea() Area
+```
+NewArea returns a new Area.
+
+#### func (*Area) Clear
+
+```go
+func (area *Area) Clear()
+```
+Clear clears the content of the Area.
+
+#### func (*Area) Update
+
+```go
+func (area *Area) Update(content string)
+```
+Update overwrites the content of the Area.
 
 ---
 
