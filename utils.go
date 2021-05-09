@@ -5,9 +5,11 @@ var height int
 // Bottom moves the cursor to the bottom of the terminal.
 // This is done by calculating how many lines were moved by Up and Down.
 func Bottom() {
-	Down(height)
-	StartOfLine()
-	height = 0
+	if height > 0 {
+		Down(height)
+		StartOfLine()
+		height = 0
+	}
 }
 
 // StartOfLine moves the cursor to the start of the current line.
