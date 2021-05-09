@@ -15,7 +15,7 @@ func Up(n int) {
 // Down moves the cursor n lines down relative to the current position.
 func Down(n int) {
 	move(0, n)
-	if height-n < 0 {
+	if height-n <= 0 {
 		height = 0
 	} else {
 		height -= n

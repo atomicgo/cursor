@@ -199,6 +199,37 @@ func UpAndClear(n int)
 ```
 UpAndClear moves the cursor up by n lines, then clears the line.
 
+#### type Area
+
+```go
+type Area struct {
+}
+```
+
+Area displays content which can be updated on the fly. You can use this to
+create live output, charts, dropdowns, etc.
+
+#### func  NewArea
+
+```go
+func NewArea() Area
+```
+NewArea returns a new Area.
+
+#### func (*Area) Clear
+
+```go
+func (area *Area) Clear()
+```
+Clear clears the content of the Area.
+
+#### func (*Area) Update
+
+```go
+func (area *Area) Update(content string)
+```
+Update overwrites the content of the Area.
+
 ---
 
 > [AtomicGo.dev](https://atomicgo.dev) &nbsp;&middot;&nbsp;
