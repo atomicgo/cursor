@@ -41,14 +41,14 @@ func HorizontalAbsolute(n int) {
 
 // Show the cursor if it was hidden previously.
 // Don't forget to show the cursor at least at the end of your application.
-// Otherwise the user might have a terminal with a permanently hidden cursor, until he reopens the terminal.
+// Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
 func Show() {
 	fmt.Print("\x1b[?25h")
 }
 
 // Hide the cursor.
 // Don't forget to show the cursor at least at the end of your application with Show.
-// Otherwise the user might have a terminal with a permanently hidden cursor, until he reopens the terminal.
+// Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
 func Hide() {
 	fmt.Print("\x1b[?25l")
 }
