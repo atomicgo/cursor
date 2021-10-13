@@ -1,10 +1,16 @@
 package cursor
 
 import (
+	"io"
 	"os"
 	"syscall"
 	"unsafe"
 )
+
+// SetTarget allows for any arbitrary io.Writer to be used
+// for cursor movement (will not work on Windows).
+func SetTarget(w io.Writer) {
+}
 
 // Up moves the cursor n lines up relative to the current position.
 func Up(n int) {
