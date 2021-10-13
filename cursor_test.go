@@ -3,6 +3,7 @@ package cursor
 import (
 	"bytes"
 	"fmt"
+	"runtime"
 	"testing"
 )
 
@@ -28,6 +29,10 @@ func TestHeightCannotBeNegative(t *testing.T) {
 }
 
 func TestCustomIOWriter(t *testing.T) {
+	if runtime.GOOS == "windows" {
+		t.Skip("skipping these tests on windows")
+	}
+
 	var w bytes.Buffer
 	SetTarget(&w)
 
