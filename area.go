@@ -3,6 +3,7 @@ package cursor
 import (
 	"fmt"
 	"io"
+	"os"
 	"runtime"
 	"strings"
 )
@@ -16,7 +17,9 @@ type Area struct {
 
 // NewArea returns a new Area.
 func NewArea() Area {
-	return Area{}
+	return Area{
+		writer: os.Stdout,
+	}
 }
 
 // WithCustomWriter sets the custom writer
