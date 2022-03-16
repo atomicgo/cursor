@@ -43,7 +43,7 @@ func (area *Area) Update(content string) {
 	lines := strings.Split(content, "\n")
 	if runtime.GOOS == "windows" {
 		for _, line := range lines {
-			fmt.Print(line)
+			fmt.Fprint(area.writer, line)
 			StartOfLineDown(1)
 		}
 	} else {
