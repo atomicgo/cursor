@@ -1,13 +1,12 @@
 package cursor
 
 import (
-	"io"
 	"os"
 	"syscall"
 	"unsafe"
 )
 
-var target Writer = target.Fd
+var target Writer = os.Stdout
 
 // SetTarget allows for any arbitrary Writer to be used
 func SetTarget(w Writer) {
