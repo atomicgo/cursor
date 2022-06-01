@@ -1,5 +1,5 @@
 <h1 align="center">AtomicGo | cursor</h1>
-
+ 
 <p align="center">
 
 <a href="https://github.com/atomicgo/cursor/releases">
