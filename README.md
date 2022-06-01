@@ -1,5 +1,5 @@
 <h1 align="center">AtomicGo | cursor</h1>
- 
+
 <p align="center">
 
 <a href="https://github.com/atomicgo/cursor/releases">
@@ -15,7 +15,7 @@
 </a>
 
 <a href="https://codecov.io/gh/atomicgo/cursor">
-<!-- unittestcount:start --><img src="https://img.shields.io/badge/Unit_Tests-2-magenta?style=flat-square" alt="Unit test count"><!-- unittestcount:end -->
+<!-- unittestcount:start --><img src="https://img.shields.io/badge/Unit_Tests-3-magenta?style=flat-square" alt="Unit test count"><!-- unittestcount:end -->
 </a>
 
 <a href="https://github.com/atomicgo/cursor/issues">
@@ -121,7 +121,7 @@ func Hide()
 ```
 Hide the cursor. Don't forget to show the cursor at least at the end of your
 application with Show. Otherwise the user might have a terminal with a
-permanently hidden cursor, until he reopens the terminal.
+permanently hidden cursor, until they reopen the terminal.
 
 #### func  HorizontalAbsolute
 
@@ -153,6 +153,14 @@ func Right(n int)
 Right moves the cursor n characters to the right relative to the current
 position.
 
+#### func  SetTarget
+
+```go
+func SetTarget(w io.Writer)
+```
+SetTarget allows for any arbitrary io.Writer to be used for cursor movement
+(will not work on Windows).
+
 #### func  Show
 
 ```go
@@ -160,7 +168,7 @@ func Show()
 ```
 Show the cursor if it was hidden previously. Don't forget to show the cursor at
 least at the end of your application. Otherwise the user might have a terminal
-with a permanently hidden cursor, until he reopens the terminal.
+with a permanently hidden cursor, until they reopen the terminal.
 
 #### func  StartOfLine
 
