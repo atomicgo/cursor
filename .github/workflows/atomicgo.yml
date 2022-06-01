@@ -1,13 +1,18 @@
-on: push
-
-name: AtomicGo
+name: golangci-lint
+on: [ push, pull_request ]
 jobs:
-  docs:
-    if: "!contains(github.event.head_commit.message, 'autoupdate')"
+  golangci:
+    name: lint
     runs-on: ubuntu-latest
     steps:
-      - name: Update Docs
-        uses: atomicgo/ci@main
-        env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          TERM: xterm-256color
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.18
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
