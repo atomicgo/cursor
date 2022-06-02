@@ -1,3 +1,3 @@
-module github.com/atomicgo/cursor
+module atomicgo.dev/cursor
 
 go 1.15
