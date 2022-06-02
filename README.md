@@ -33,7 +33,7 @@
 <p align="center">
 <strong><a href="#install">Get The Module</a></strong>
 |
-<strong><a href="https://pkg.go.dev/github.com/atomicgo/cursor#section-documentation" target="_blank">Documentation</a></strong>
+<strong><a href="https://pkg.go.dev/atomicgo.dev/cursor#section-documentation" target="_blank">Documentation</a></strong>
 |
 <strong><a href="https://github.com/atomicgo/atomicgo/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></strong>
 |
@@ -46,6 +46,30 @@
   <img src="https://raw.githubusercontent.com/atomicgo/atomicgo/main/assets/header.png" alt="AtomicGo">
 </p>
 
+<p align="center">
+<table>
+<tbody>
+<td align="center">
+<img width="2000" height="0"><br>
+  ---------------------------------------------------------------------------------------------------------------------------
+<img width="2000" height="0">
+</td>
+</tbody>
+</table>
+</p>
+<h3  align="center"><pre>go get atomicgo.dev/cursor</pre></h3>
+<p align="center">
+<table>
+<tbody>
+<td align="center">
+<img width="2000" height="0"><br>
+   ---------------------------------------------------------------------------------------------------------------------------
+<img width="2000" height="0">
+</td>
+</tbody>
+</table>
+</p>
+
 ## Description
 
 Package cursor contains cross-platform methods to move the terminal cursor in
@@ -55,17 +79,6 @@ any kind.
 
 Special thanks to github.com/k0kubun/go-ansi which this project is based on.
 
-## Install
-
-```console
-# Execute this command inside your project
-go get -u github.com/atomicgo/cursor
-```
-
-```go
-// Add this to your imports
-import "github.com/atomicgo/cursor"
-```
 
 ## Usage
 
