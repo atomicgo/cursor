@@ -4,7 +4,7 @@ repository:
   # See https://developer.github.com/v3/repos/#edit for all available settings.
 
   # A short description of the repository that will show up on GitHub
-  description: 🔹 Golang module to move the terminal cursor in any direction on every operating system.
+  description: 🔹 Go module to move the terminal cursor in any direction on every operating system.
 
   # A comma-separated list of topics to set on the repository
   topics: atomicgo, go, golang, golang-library, terminal, cursor, tui
