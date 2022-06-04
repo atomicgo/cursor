@@ -15,7 +15,7 @@
 </a>
 
 <a href="https://codecov.io/gh/atomicgo/cursor">
-<!-- unittestcount:start --><img src="https://img.shields.io/badge/Unit_Tests-3-magenta?style=flat-square" alt="Unit test count"><!-- unittestcount:end -->
+<!-- unittestcount:start --><img src="https://img.shields.io/badge/Unit_Tests-2-magenta?style=flat-square" alt="Unit test count"><!-- unittestcount:end -->
 </a>
 
 <a href="https://github.com/atomicgo/cursor/issues">
@@ -51,7 +51,7 @@
 <tbody>
 <td align="center">
 <img width="2000" height="0"><br>
-  ---------------------------------------------------------------------------------------------------------------------------
+  -----------------------------------------------------------------------------------------------------
 <img width="2000" height="0">
 </td>
 </tbody>
@@ -63,7 +63,7 @@
 <tbody>
 <td align="center">
 <img width="2000" height="0"><br>
-   ---------------------------------------------------------------------------------------------------------------------------
+   -----------------------------------------------------------------------------------------------------
 <img width="2000" height="0">
 </td>
 </tbody>
@@ -169,7 +169,7 @@ position.
 #### func  SetTarget
 
 ```go
-func SetTarget(w io.Writer)
+func SetTarget(w Writer)
 ```
 SetTarget allows for any arbitrary io.Writer to be used for cursor movement
 (will not work on Windows).
@@ -205,6 +205,12 @@ func StartOfLineUp(n int)
 ```
 StartOfLineUp moves the cursor up by n lines, then moves to cursor to the start
 of the line.
+
+#### func  TestCustomIOWriter
+
+```go
+func TestCustomIOWriter(t *testing.T)
+```
 
 #### func  Up
 
@@ -250,6 +256,15 @@ Clear clears the content of the Area.
 func (area *Area) Update(content string)
 ```
 Update overwrites the content of the Area.
+
+#### type Writer
+
+```go
+type Writer interface {
+	io.Writer
+	Fd() uintptr
+}
+```
 
 ---
 
