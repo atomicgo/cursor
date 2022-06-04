@@ -74,6 +74,7 @@ func ClearLinesDown(n int) {
 	}
 }
 
+// Writer is an expanded io.Writer interface with a file descriptor.
 type Writer interface {
 	io.Writer
 	Fd() uintptr
