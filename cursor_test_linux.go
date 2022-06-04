@@ -1,5 +1,11 @@
 package cursor
 
+import (
+	"log"
+	"os"
+	"testing"
+)
+
 func TestCustomIOWriter(t *testing.T) {
 	tmpFile, err := os.CreateTemp("", "testingTmpFile-")
 	if err != nil {
