@@ -136,7 +136,7 @@ func Hide()
 ```
 Hide the cursor. Don't forget to show the cursor at least at the end of your
 application with Show. Otherwise the user might have a terminal with a
-permanently hidden cursor, until he reopens the terminal.
+permanently hidden cursor, until they reopen the terminal.
 
 #### func  HorizontalAbsolute
 
@@ -173,7 +173,8 @@ position.
 ```go
 func SetTarget(w Writer)
 ```
-SetTarget allows for any arbitrary Writer to be used
+SetTarget allows for any arbitrary io.Writer to be used for cursor movement
+(will not work on Windows).
 
 #### func  Show
 
@@ -182,7 +183,7 @@ func Show()
 ```
 Show the cursor if it was hidden previously. Don't forget to show the cursor at
 least at the end of your application. Otherwise the user might have a terminal
-with a permanently hidden cursor, until he reopens the terminal.
+with a permanently hidden cursor, until they reopen the terminal.
 
 #### func  StartOfLine
 
