@@ -29,6 +29,10 @@ func (area *Area) Clear() {
 func (area *Area) Update(content string) {
 	area.Clear()
 	lines := strings.Split(content, "\n")
+
+	fmt.Println(strings.Repeat("\n", len(lines)-1)) // This appends space if the terminal is at the bottom
+	Up(len(lines))
+
 	if runtime.GOOS == "windows" {
 		for _, line := range lines {
 			fmt.Print(line)
