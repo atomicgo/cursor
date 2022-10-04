@@ -268,6 +268,8 @@ type Writer interface {
 }
 ```
 
+Writer is an expanded io.Writer interface with a file descriptor.
+
 ---
 
 > [AtomicGo.dev](https://atomicgo.dev) &nbsp;&middot;&nbsp;
