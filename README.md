@@ -32,8 +32,6 @@
 ---
 
 <p align="center">
-<strong><a href="#install">Get The Module</a></strong>
-|
 <strong><a href="https://pkg.go.dev/atomicgo.dev/cursor#section-documentation" target="_blank">Documentation</a></strong>
 |
 <strong><a href="https://github.com/atomicgo/atomicgo/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></strong>
