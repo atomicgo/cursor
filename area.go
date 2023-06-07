@@ -2,7 +2,6 @@ package cursor
 
 import (
 	"fmt"
-	"runtime"
 	"strings"
 )
 
@@ -28,22 +27,8 @@ func (area *Area) Clear() {
 // Update overwrites the content of the Area.
 func (area *Area) Update(content string) {
 	area.Clear()
-	lines := strings.Split(content, "\n")
-
-	fmt.Println(strings.Repeat("\n", len(lines)-1)) // This appends space if the terminal is at the bottom
-	Up(len(lines))
-
-	if runtime.GOOS == "windows" {
-		for _, line := range lines {
-			fmt.Print(line)
-			StartOfLineDown(1)
-		}
-	} else {
-		for _, line := range lines {
-			fmt.Println(line)
-		}
-	}
+	fmt.Println(content)
 	height = 0
 
-	area.height = len(lines)
+	area.height = len(strings.Split(content, "\n"))
 }
