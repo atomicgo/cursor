@@ -22,8 +22,8 @@ func NewArea() Area {
 	}
 }
 
-// WithCustomWriter sets the custom writer
-func (area *Area) WithCustomWriter(writer io.Writer) *Area {
+// WithWriter sets the custom writer
+func (area Area) WithWriter(writer io.Writer) Area {
 	area.writer = writer
 
 	return area
