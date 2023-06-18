@@ -1,18 +1,18 @@
+//go:build !windows
 // +build !windows
 
 package cursor
 
 import (
 	"fmt"
-	"io"
 	"os"
 )
 
-var target io.Writer = os.Stdout
+var target Writer = os.Stdout
 
 // SetTarget allows for any arbitrary io.Writer to be used
 // for cursor movement (will not work on Windows).
-func SetTarget(w io.Writer) {
+func SetTarget(w Writer) {
 	target = w
 }
 

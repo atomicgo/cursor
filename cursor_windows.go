@@ -1,15 +1,16 @@
 package cursor
 
 import (
-	"io"
 	"os"
 	"syscall"
 	"unsafe"
 )
 
-// SetTarget allows for any arbitrary io.Writer to be used
-// for cursor movement (will not work on Windows).
-func SetTarget(w io.Writer) {
+var target Writer = os.Stdout
+
+// SetTarget allows for any arbitrary Writer to be used
+func SetTarget(w Writer) {
+	target = w
 }
 
 // Up moves the cursor n lines up relative to the current position.
@@ -39,7 +40,7 @@ func Left(n int) {
 }
 
 func move(x int, y int) {
-	handle := syscall.Handle(os.Stdout.Fd())
+	handle := syscall.Handle(target.Fd())
 
 	var csbi consoleScreenBufferInfo
 	_, _, _ = procGetConsoleScreenBufferInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&csbi)))
@@ -54,7 +55,7 @@ func move(x int, y int) {
 // HorizontalAbsolute moves the cursor to n horizontally.
 // The position n is absolute to the start of the line.
 func HorizontalAbsolute(n int) {
-	handle := syscall.Handle(os.Stdout.Fd())
+	handle := syscall.Handle(target.Fd())
 
 	var csbi consoleScreenBufferInfo
 	_, _, _ = procGetConsoleScreenBufferInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&csbi)))
@@ -74,7 +75,7 @@ func HorizontalAbsolute(n int) {
 // Don't forget to show the cursor at least at the end of your application.
 // Otherwise the user might have a terminal with a permanently hidden cursor, until he reopens the terminal.
 func Show() {
-	handle := syscall.Handle(os.Stdout.Fd())
+	handle := syscall.Handle(target.Fd())
 
 	var cci consoleCursorInfo
 	_, _, _ = procGetConsoleCursorInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&cci)))
@@ -87,7 +88,7 @@ func Show() {
 // Don't forget to show the cursor at least at the end of your application with Show.
 // Otherwise the user might have a terminal with a permanently hidden cursor, until he reopens the terminal.
 func Hide() {
-	handle := syscall.Handle(os.Stdout.Fd())
+	handle := syscall.Handle(target.Fd())
 
 	var cci consoleCursorInfo
 	_, _, _ = procGetConsoleCursorInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&cci)))
@@ -96,9 +97,9 @@ func Hide() {
 	_, _, _ = procSetConsoleCursorInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&cci)))
 }
 
-// ClearLine clears the current line and moves the cursor to it's start position.
+// ClearLine clears the current line and moves the cursor to its start position.
 func ClearLine() {
-	handle := syscall.Handle(os.Stdout.Fd())
+	handle := syscall.Handle(target.Fd())
 
 	var csbi consoleScreenBufferInfo
 	_, _, _ = procGetConsoleScreenBufferInfo.Call(uintptr(handle), uintptr(unsafe.Pointer(&csbi)))

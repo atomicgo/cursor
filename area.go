@@ -40,18 +40,8 @@ func (area *Area) Clear() {
 // Update overwrites the content of the Area.
 func (area *Area) Update(content string) {
 	area.Clear()
-	lines := strings.Split(content, "\n")
-	if runtime.GOOS == "windows" {
-		for _, line := range lines {
-			fmt.Fprint(area.writer, line)
-			StartOfLineDown(1)
-		}
-	} else {
-		for _, line := range lines {
-			fmt.Fprintln(area.writer, line)
-		}
-	}
+	fmt.Println(content)
 	height = 0
 
-	area.height = len(lines)
+	area.height = len(strings.Split(content, "\n"))
 }
