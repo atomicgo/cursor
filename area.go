@@ -17,6 +17,7 @@ type Area struct {
 func NewArea() Area {
 	return Area{
 		writer: os.Stdout,
+		height: 0,
 	}
 }
 
@@ -30,6 +31,7 @@ func (area Area) WithWriter(writer Writer) Area {
 // Clear clears the content of the Area.
 func (area *Area) Clear() {
 	Bottom()
+
 	if area.height > 0 {
 		ClearLinesUp(area.height)
 	}
@@ -38,11 +40,12 @@ func (area *Area) Clear() {
 // Update overwrites the content of the Area.
 func (area *Area) Update(content string) {
 	oldWriter := target
+
 	SetTarget(area.writer) // Temporary set the target to the Area's writer so we can use the cursor functions
 	area.Clear()
 	SetTarget(oldWriter) // Reset the target to the old writer
 	fmt.Fprintln(area.writer, content)
-	height = 0
 
+	height = 0
 	area.height = len(strings.Split(content, "\n"))
 }
