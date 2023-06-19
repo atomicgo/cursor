@@ -5,66 +5,148 @@ package cursor
 
 import (
 	"fmt"
+	"io"
 	"os"
 )
 
-var target Writer = os.Stdout
+var cursor = &Cursor{writer: os.Stdout}
 
-// SetTarget allows for any arbitrary io.Writer to be used
+// Cursor displays content which can be updated on the fly.
+// You can use this to create live output, charts, dropdowns, etc.
+type Cursor struct {
+	writer io.Writer
+}
+
+func NewCursor() *Cursor {
+	return &Cursor{writer: os.Stdout}
+}
+
+// WithWriter allows for any arbitrary io.Writer to be used
 // for cursor movement (will not work on Windows).
-func SetTarget(w Writer) {
-	target = w
+func (c *Cursor) WithWriter(w io.Writer) *Cursor {
+	if w != nil {
+		c.writer = w
+	}
+	return c
+}
+
+// Up moves the cursor n lines up relative to the current position.
+func (c *Cursor) Up(n int) {
+	if n > 0 {
+		fmt.Fprintf(c.writer, "\x1b[%dA", n)
+	}
+}
+
+// Down moves the cursor n lines down relative to the current position.
+func (c *Cursor) Down(n int) {
+	if n > 0 {
+		fmt.Fprintf(c.writer, "\x1b[%dB", n)
+	}
+}
+
+// Right moves the cursor n characters to the right relative to the current position.
+func (c *Cursor) Right(n int) {
+	if n > 0 {
+		fmt.Fprintf(c.writer, "\x1b[%dC", n)
+	}
+}
+
+// Left moves the cursor n characters to the left relative to the current position.
+func (c *Cursor) Left(n int) {
+	if n > 0 {
+		fmt.Fprintf(c.writer, "\x1b[%dD", n)
+	}
+}
+
+// HorizontalAbsolute moves the cursor to n horizontally.
+// The position n is absolute to the start of the line.
+func (c *Cursor) HorizontalAbsolute(n int) {
+	n += 1 // Moves the line to the character after n
+	fmt.Fprintf(c.writer, "\x1b[%dG", n)
+}
+
+// Show the cursor if it was hidden previously.
+// Don't forget to show the cursor at least at the end of your application.
+// Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
+func (c *Cursor) Show() {
+	fmt.Fprint(c.writer, "\x1b[?25h")
+}
+
+// Hide the cursor.
+// Don't forget to show the cursor at least at the end of your application with Show.
+// Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
+func (c *Cursor) Hide() {
+	fmt.Fprintf(c.writer, "\x1b[?25l")
+}
+
+// ClearLine clears the current line and moves the cursor to it's start position.
+func (c *Cursor) ClearLine() {
+	fmt.Fprintf(c.writer, "\x1b[2K")
+}
+
+// Clear clears the current position and moves the cursor to the left.
+func (c *Cursor) Clear() {
+	fmt.Fprintf(c.writer, "\x1b[K")
+}
+
+//
+// These only remain for compatibility for now
+//
+
+func SetTarget(w io.Writer) {
+	cursor = cursor.WithWriter(w)
 }
 
 // Up moves the cursor n lines up relative to the current position.
 func Up(n int) {
-	fmt.Fprintf(target, "\x1b[%dA", n)
-	height += n
+	cursor.Up(n)
+	autoheight += n
 }
 
 // Down moves the cursor n lines down relative to the current position.
 func Down(n int) {
-	fmt.Fprintf(target, "\x1b[%dB", n)
-
-	if height-n <= 0 {
-		height = 0
-	} else {
-		height -= n
+	cursor.Down(n)
+	if autoheight > 0 {
+		autoheight -= n
 	}
 }
 
 // Right moves the cursor n characters to the right relative to the current position.
 func Right(n int) {
-	fmt.Fprintf(target, "\x1b[%dC", n)
+	cursor.Right(n)
 }
 
 // Left moves the cursor n characters to the left relative to the current position.
 func Left(n int) {
-	fmt.Fprintf(target, "\x1b[%dD", n)
+	cursor.Left(n)
 }
 
 // HorizontalAbsolute moves the cursor to n horizontally.
 // The position n is absolute to the start of the line.
 func HorizontalAbsolute(n int) {
-	n++ // Moves the line to the character after n
-	fmt.Fprintf(target, "\x1b[%dG", n)
+	cursor.HorizontalAbsolute(n)
 }
 
 // Show the cursor if it was hidden previously.
 // Don't forget to show the cursor at least at the end of your application.
 // Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
 func Show() {
-	fmt.Fprint(target, "\x1b[?25h")
+	cursor.Show()
 }
 
 // Hide the cursor.
 // Don't forget to show the cursor at least at the end of your application with Show.
 // Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
 func Hide() {
-	fmt.Fprintf(target, "\x1b[?25l")
+	cursor.Hide()
 }
 
 // ClearLine clears the current line and moves the cursor to it's start position.
 func ClearLine() {
-	fmt.Fprintf(target, "\x1b[2K")
+	cursor.ClearLine()
+}
+
+// Clear clears the current position and moves the cursor to the left.
+func Clear() {
+	cursor.Clear()
 }

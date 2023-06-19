@@ -2,16 +2,15 @@ package cursor
 
 import "io"
 
-var height int
+var autoheight int
 
 // Bottom moves the cursor to the bottom of the terminal.
 // This is done by calculating how many lines were moved by Up and Down.
 func Bottom() {
-	if height > 0 {
-		Down(height)
+	if autoheight > 0 {
+		Down(autoheight)
 		StartOfLine()
-
-		height = 0
+		autoheight = 0
 	}
 }
 
