@@ -77,35 +77,62 @@ Special thanks to github.com/k0kubun/go\-ansi which this project is based on.
 
 ## Index
 
-- [func Bottom\(\)](<#Bottom>)
-- [func ClearLine\(\)](<#ClearLine>)
-- [func ClearLinesDown\(n int\)](<#ClearLinesDown>)
-- [func ClearLinesUp\(n int\)](<#ClearLinesUp>)
-- [func Down\(n int\)](<#Down>)
-- [func DownAndClear\(n int\)](<#DownAndClear>)
-- [func Hide\(\)](<#Hide>)
-- [func HorizontalAbsolute\(n int\)](<#HorizontalAbsolute>)
-- [func Left\(n int\)](<#Left>)
-- [func Move\(x, y int\)](<#Move>)
-- [func Right\(n int\)](<#Right>)
-- [func SetTarget\(w Writer\)](<#SetTarget>)
-- [func Show\(\)](<#Show>)
-- [func StartOfLine\(\)](<#StartOfLine>)
-- [func StartOfLineDown\(n int\)](<#StartOfLineDown>)
-- [func StartOfLineUp\(n int\)](<#StartOfLineUp>)
-- [func TestCustomIOWriter\(t \*testing.T\)](<#TestCustomIOWriter>)
-- [func Up\(n int\)](<#Up>)
-- [func UpAndClear\(n int\)](<#UpAndClear>)
-- [type Area](<#Area>)
-  - [func NewArea\(\) Area](<#NewArea>)
-  - [func \(area \*Area\) Clear\(\)](<#Area.Clear>)
-  - [func \(area \*Area\) Update\(content string\)](<#Area.Update>)
-  - [func \(area Area\) WithWriter\(writer Writer\) Area](<#Area.WithWriter>)
-- [type Writer](<#Writer>)
+- [cursor](#cursor)
+  - [Index](#index)
+  - [func Bottom](#func-bottom)
+  - [func Clear](#func-clear)
+  - [func ClearLine](#func-clearline)
+  - [func ClearLinesDown](#func-clearlinesdown)
+  - [func ClearLinesUp](#func-clearlinesup)
+  - [func Down](#func-down)
+  - [func DownAndClear](#func-downandclear)
+  - [func Hide](#func-hide)
+  - [func HorizontalAbsolute](#func-horizontalabsolute)
+  - [func Left](#func-left)
+  - [func Move](#func-move)
+  - [func Right](#func-right)
+  - [func SetTarget](#func-settarget)
+  - [func Show](#func-show)
+  - [func StartOfLine](#func-startofline)
+  - [func StartOfLineDown](#func-startoflinedown)
+  - [func StartOfLineUp](#func-startoflineup)
+  - [func TestCustomIOWriter](#func-testcustomiowriter)
+  - [func Up](#func-up)
+  - [func UpAndClear](#func-upandclear)
+  - [type Area](#type-area)
+    - [func NewArea](#func-newarea)
+    - [func (\*Area) Bottom](#func-area-bottom)
+    - [func (\*Area) Clear](#func-area-clear)
+    - [func (\*Area) ClearLinesDown](#func-area-clearlinesdown)
+    - [func (\*Area) ClearLinesUp](#func-area-clearlinesup)
+    - [func (\*Area) Down](#func-area-down)
+    - [func (\*Area) DownAndClear](#func-area-downandclear)
+    - [func (\*Area) Move](#func-area-move)
+    - [func (\*Area) StartOfLine](#func-area-startofline)
+    - [func (\*Area) StartOfLineDown](#func-area-startoflinedown)
+    - [func (\*Area) StartOfLineUp](#func-area-startoflineup)
+    - [func (\*Area) Top](#func-area-top)
+    - [func (\*Area) Up](#func-area-up)
+    - [func (\*Area) UpAndClear](#func-area-upandclear)
+    - [func (\*Area) Update](#func-area-update)
+    - [func (\*Area) WithWriter](#func-area-withwriter)
+  - [type Cursor](#type-cursor)
+    - [func NewCursor](#func-newcursor)
+    - [func (\*Cursor) Clear](#func-cursor-clear)
+    - [func (\*Cursor) ClearLine](#func-cursor-clearline)
+    - [func (\*Cursor) Down](#func-cursor-down)
+    - [func (\*Cursor) Hide](#func-cursor-hide)
+    - [func (\*Cursor) HorizontalAbsolute](#func-cursor-horizontalabsolute)
+    - [func (\*Cursor) Left](#func-cursor-left)
+    - [func (\*Cursor) Right](#func-cursor-right)
+    - [func (\*Cursor) Show](#func-cursor-show)
+    - [func (\*Cursor) Up](#func-cursor-up)
+    - [func (\*Cursor) WithWriter](#func-cursor-withwriter)
+  - [type Writer](#type-writer)
 
 
 <a name="Bottom"></a>
-## func [Bottom](<https://github.com/atomicgo/cursor/blob/main/utils.go#L9>)
+## func [Bottom](<https://github.com/atomicgo/cursor/blob/main/utils.go#L75>)
 
 ```go
 func Bottom()
@@ -113,8 +140,17 @@ func Bottom()
 
 Bottom moves the cursor to the bottom of the terminal. This is done by calculating how many lines were moved by Up and Down.
 
+<a name="Clear"></a>
+## func [Clear](<https://github.com/atomicgo/cursor/blob/main/utils.go#L69>)
+
+```go
+func Clear()
+```
+
+Clear clears the current position and moves the cursor to the left.
+
 <a name="ClearLine"></a>
-## func [ClearLine](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L68>)
+## func [ClearLine](<https://github.com/atomicgo/cursor/blob/main/utils.go#L64>)
 
 ```go
 func ClearLine()
@@ -123,7 +159,7 @@ func ClearLine()
 ClearLine clears the current line and moves the cursor to it's start position.
 
 <a name="ClearLinesDown"></a>
-## func [ClearLinesDown](<https://github.com/atomicgo/cursor/blob/main/utils.go#L72>)
+## func [ClearLinesDown](<https://github.com/atomicgo/cursor/blob/main/utils.go#L137>)
 
 ```go
 func ClearLinesDown(n int)
@@ -132,7 +168,7 @@ func ClearLinesDown(n int)
 ClearLinesDown clears n lines downwards from the current position and moves the cursor.
 
 <a name="ClearLinesUp"></a>
-## func [ClearLinesUp](<https://github.com/atomicgo/cursor/blob/main/utils.go#L65>)
+## func [ClearLinesUp](<https://github.com/atomicgo/cursor/blob/main/utils.go#L130>)
 
 ```go
 func ClearLinesUp(n int)
@@ -141,7 +177,7 @@ func ClearLinesUp(n int)
 ClearLinesUp clears n lines upwards from the current position and moves the cursor.
 
 <a name="Down"></a>
-## func [Down](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L26>)
+## func [Down](<https://github.com/atomicgo/cursor/blob/main/utils.go#L26>)
 
 ```go
 func Down(n int)
@@ -150,7 +186,7 @@ func Down(n int)
 Down moves the cursor n lines down relative to the current position.
 
 <a name="DownAndClear"></a>
-## func [DownAndClear](<https://github.com/atomicgo/cursor/blob/main/utils.go#L42>)
+## func [DownAndClear](<https://github.com/atomicgo/cursor/blob/main/utils.go#L107>)
 
 ```go
 func DownAndClear(n int)
@@ -159,7 +195,7 @@ func DownAndClear(n int)
 DownAndClear moves the cursor down by n lines, then clears the line.
 
 <a name="Hide"></a>
-## func [Hide](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L63>)
+## func [Hide](<https://github.com/atomicgo/cursor/blob/main/utils.go#L59>)
 
 ```go
 func Hide()
@@ -168,7 +204,7 @@ func Hide()
 Hide the cursor. Don't forget to show the cursor at least at the end of your application with Show. Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
 
 <a name="HorizontalAbsolute"></a>
-## func [HorizontalAbsolute](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L48>)
+## func [HorizontalAbsolute](<https://github.com/atomicgo/cursor/blob/main/utils.go#L45>)
 
 ```go
 func HorizontalAbsolute(n int)
@@ -177,7 +213,7 @@ func HorizontalAbsolute(n int)
 HorizontalAbsolute moves the cursor to n horizontally. The position n is absolute to the start of the line.
 
 <a name="Left"></a>
-## func [Left](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L42>)
+## func [Left](<https://github.com/atomicgo/cursor/blob/main/utils.go#L39>)
 
 ```go
 func Left(n int)
@@ -186,7 +222,7 @@ func Left(n int)
 Left moves the cursor n characters to the left relative to the current position.
 
 <a name="Move"></a>
-## func [Move](<https://github.com/atomicgo/cursor/blob/main/utils.go#L48>)
+## func [Move](<https://github.com/atomicgo/cursor/blob/main/utils.go#L113>)
 
 ```go
 func Move(x, y int)
@@ -195,7 +231,7 @@ func Move(x, y int)
 Move moves the cursor relative by x and y.
 
 <a name="Right"></a>
-## func [Right](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L37>)
+## func [Right](<https://github.com/atomicgo/cursor/blob/main/utils.go#L34>)
 
 ```go
 func Right(n int)
@@ -204,16 +240,16 @@ func Right(n int)
 Right moves the cursor n characters to the right relative to the current position.
 
 <a name="SetTarget"></a>
-## func [SetTarget](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L15>)
+## func [SetTarget](<https://github.com/atomicgo/cursor/blob/main/utils.go#L15>)
 
 ```go
 func SetTarget(w Writer)
 ```
 
-SetTarget allows for any arbitrary io.Writer to be used for cursor movement \(will not work on Windows\).
+
 
 <a name="Show"></a>
-## func [Show](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L56>)
+## func [Show](<https://github.com/atomicgo/cursor/blob/main/utils.go#L52>)
 
 ```go
 func Show()
@@ -222,7 +258,7 @@ func Show()
 Show the cursor if it was hidden previously. Don't forget to show the cursor at least at the end of your application. Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
 
 <a name="StartOfLine"></a>
-## func [StartOfLine](<https://github.com/atomicgo/cursor/blob/main/utils.go#L19>)
+## func [StartOfLine](<https://github.com/atomicgo/cursor/blob/main/utils.go#L84>)
 
 ```go
 func StartOfLine()
@@ -231,7 +267,7 @@ func StartOfLine()
 StartOfLine moves the cursor to the start of the current line.
 
 <a name="StartOfLineDown"></a>
-## func [StartOfLineDown](<https://github.com/atomicgo/cursor/blob/main/utils.go#L24>)
+## func [StartOfLineDown](<https://github.com/atomicgo/cursor/blob/main/utils.go#L89>)
 
 ```go
 func StartOfLineDown(n int)
@@ -240,7 +276,7 @@ func StartOfLineDown(n int)
 StartOfLineDown moves the cursor down by n lines, then moves to cursor to the start of the line.
 
 <a name="StartOfLineUp"></a>
-## func [StartOfLineUp](<https://github.com/atomicgo/cursor/blob/main/utils.go#L30>)
+## func [StartOfLineUp](<https://github.com/atomicgo/cursor/blob/main/utils.go#L95>)
 
 ```go
 func StartOfLineUp(n int)
@@ -258,7 +294,7 @@ func TestCustomIOWriter(t *testing.T)
 TestCustomIOWriter tests the cursor functions with a custom Writer.
 
 <a name="Up"></a>
-## func [Up](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L20>)
+## func [Up](<https://github.com/atomicgo/cursor/blob/main/utils.go#L20>)
 
 ```go
 func Up(n int)
@@ -267,7 +303,7 @@ func Up(n int)
 Up moves the cursor n lines up relative to the current position.
 
 <a name="UpAndClear"></a>
-## func [UpAndClear](<https://github.com/atomicgo/cursor/blob/main/utils.go#L36>)
+## func [UpAndClear](<https://github.com/atomicgo/cursor/blob/main/utils.go#L101>)
 
 ```go
 func UpAndClear(n int)
@@ -276,7 +312,7 @@ func UpAndClear(n int)
 UpAndClear moves the cursor up by n lines, then clears the line.
 
 <a name="Area"></a>
-## type [Area](<https://github.com/atomicgo/cursor/blob/main/area.go#L12-L15>)
+## type [Area](<https://github.com/atomicgo/cursor/blob/main/area.go#L11-L16>)
 
 Area displays content which can be updated on the fly. You can use this to create live output, charts, dropdowns, etc.
 
@@ -287,16 +323,25 @@ type Area struct {
 ```
 
 <a name="NewArea"></a>
-### func [NewArea](<https://github.com/atomicgo/cursor/blob/main/area.go#L18>)
+### func [NewArea](<https://github.com/atomicgo/cursor/blob/main/area.go#L19>)
 
 ```go
-func NewArea() Area
+func NewArea() *Area
 ```
 
 NewArea returns a new Area.
 
+<a name="Area.Bottom"></a>
+### func \(\*Area\) [Bottom](<https://github.com/atomicgo/cursor/blob/main/area.go#L82>)
+
+```go
+func (area *Area) Bottom()
+```
+
+Bottom moves the cursor to the bottom of the terminal. This is done by calculating how many lines were moved by Up and Down.
+
 <a name="Area.Clear"></a>
-### func \(\*Area\) [Clear](<https://github.com/atomicgo/cursor/blob/main/area.go#L33>)
+### func \(\*Area\) [Clear](<https://github.com/atomicgo/cursor/blob/main/area.go#L34>)
 
 ```go
 func (area *Area) Clear()
@@ -304,8 +349,107 @@ func (area *Area) Clear()
 
 Clear clears the content of the Area.
 
+<a name="Area.ClearLinesDown"></a>
+### func \(\*Area\) [ClearLinesDown](<https://github.com/atomicgo/cursor/blob/main/area.go#L156>)
+
+```go
+func (area *Area) ClearLinesDown(n int)
+```
+
+ClearLinesDown clears n lines downwards from the current position and moves the cursor.
+
+<a name="Area.ClearLinesUp"></a>
+### func \(\*Area\) [ClearLinesUp](<https://github.com/atomicgo/cursor/blob/main/area.go#L149>)
+
+```go
+func (area *Area) ClearLinesUp(n int)
+```
+
+ClearLinesUp clears n lines upwards from the current position and moves the cursor.
+
+<a name="Area.Down"></a>
+### func \(\*Area\) [Down](<https://github.com/atomicgo/cursor/blob/main/area.go#L70>)
+
+```go
+func (area *Area) Down(n int)
+```
+
+Down moves the cursor of the area down one line.
+
+<a name="Area.DownAndClear"></a>
+### func \(\*Area\) [DownAndClear](<https://github.com/atomicgo/cursor/blob/main/area.go#L125>)
+
+```go
+func (area *Area) DownAndClear(n int)
+```
+
+DownAndClear moves the cursor down by n lines, then clears the line.
+
+<a name="Area.Move"></a>
+### func \(\*Area\) [Move](<https://github.com/atomicgo/cursor/blob/main/area.go#L132>)
+
+```go
+func (area *Area) Move(x, y int)
+```
+
+Move moves the cursor relative by x and y.
+
+<a name="Area.StartOfLine"></a>
+### func \(\*Area\) [StartOfLine](<https://github.com/atomicgo/cursor/blob/main/area.go#L101>)
+
+```go
+func (area *Area) StartOfLine()
+```
+
+StartOfLine moves the cursor to the start of the current line.
+
+<a name="Area.StartOfLineDown"></a>
+### func \(\*Area\) [StartOfLineDown](<https://github.com/atomicgo/cursor/blob/main/area.go#L106>)
+
+```go
+func (area *Area) StartOfLineDown(n int)
+```
+
+StartOfLineDown moves the cursor down by n lines, then moves to cursor to the start of the line.
+
+<a name="Area.StartOfLineUp"></a>
+### func \(\*Area\) [StartOfLineUp](<https://github.com/atomicgo/cursor/blob/main/area.go#L112>)
+
+```go
+func (area *Area) StartOfLineUp(n int)
+```
+
+StartOfLineUp moves the cursor up by n lines, then moves to cursor to the start of the line.
+
+<a name="Area.Top"></a>
+### func \(\*Area\) [Top](<https://github.com/atomicgo/cursor/blob/main/area.go#L92>)
+
+```go
+func (area *Area) Top()
+```
+
+Top moves the cursor to the top of the area. This is done by calculating how many lines were moved by Up and Down.
+
+<a name="Area.Up"></a>
+### func \(\*Area\) [Up](<https://github.com/atomicgo/cursor/blob/main/area.go#L59>)
+
+```go
+func (area *Area) Up(n int)
+```
+
+Up moves the cursor of the area up one line.
+
+<a name="Area.UpAndClear"></a>
+### func \(\*Area\) [UpAndClear](<https://github.com/atomicgo/cursor/blob/main/area.go#L118>)
+
+```go
+func (area *Area) UpAndClear(n int)
+```
+
+UpAndClear moves the cursor up by n lines, then clears the line.
+
 <a name="Area.Update"></a>
-### func \(\*Area\) [Update](<https://github.com/atomicgo/cursor/blob/main/area.go#L42>)
+### func \(\*Area\) [Update](<https://github.com/atomicgo/cursor/blob/main/area.go#L47>)
 
 ```go
 func (area *Area) Update(content string)
@@ -314,16 +458,126 @@ func (area *Area) Update(content string)
 Update overwrites the content of the Area.
 
 <a name="Area.WithWriter"></a>
-### func \(Area\) [WithWriter](<https://github.com/atomicgo/cursor/blob/main/area.go#L26>)
+### func \(\*Area\) [WithWriter](<https://github.com/atomicgo/cursor/blob/main/area.go#L27>)
 
 ```go
-func (area Area) WithWriter(writer Writer) Area
+func (area *Area) WithWriter(writer Writer) *Area
 ```
 
-WithWriter sets a custom writer for the Area.
+WithWriter sets the custom writer
+
+<a name="Cursor"></a>
+## type [Cursor](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L13-L15>)
+
+Cursor displays content which can be updated on the fly. You can use this to create live output, charts, dropdowns, etc.
+
+```go
+type Cursor struct {
+    // contains filtered or unexported fields
+}
+```
+
+<a name="NewCursor"></a>
+### func [NewCursor](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L17>)
+
+```go
+func NewCursor() *Cursor
+```
+
+
+
+<a name="Cursor.Clear"></a>
+### func \(\*Cursor\) [Clear](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L85>)
+
+```go
+func (c *Cursor) Clear()
+```
+
+Clear clears the current position and moves the cursor to the left.
+
+<a name="Cursor.ClearLine"></a>
+### func \(\*Cursor\) [ClearLine](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L80>)
+
+```go
+func (c *Cursor) ClearLine()
+```
+
+ClearLine clears the current line and moves the cursor to it's start position.
+
+<a name="Cursor.Down"></a>
+### func \(\*Cursor\) [Down](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L38>)
+
+```go
+func (c *Cursor) Down(n int)
+```
+
+Down moves the cursor n lines down relative to the current position.
+
+<a name="Cursor.Hide"></a>
+### func \(\*Cursor\) [Hide](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L75>)
+
+```go
+func (c *Cursor) Hide()
+```
+
+Hide the cursor. Don't forget to show the cursor at least at the end of your application with Show. Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
+
+<a name="Cursor.HorizontalAbsolute"></a>
+### func \(\*Cursor\) [HorizontalAbsolute](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L60>)
+
+```go
+func (c *Cursor) HorizontalAbsolute(n int)
+```
+
+HorizontalAbsolute moves the cursor to n horizontally. The position n is absolute to the start of the line.
+
+<a name="Cursor.Left"></a>
+### func \(\*Cursor\) [Left](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L52>)
+
+```go
+func (c *Cursor) Left(n int)
+```
+
+Left moves the cursor n characters to the left relative to the current position.
+
+<a name="Cursor.Right"></a>
+### func \(\*Cursor\) [Right](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L45>)
+
+```go
+func (c *Cursor) Right(n int)
+```
+
+Right moves the cursor n characters to the right relative to the current position.
+
+<a name="Cursor.Show"></a>
+### func \(\*Cursor\) [Show](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L68>)
+
+```go
+func (c *Cursor) Show()
+```
+
+Show the cursor if it was hidden previously. Don't forget to show the cursor at least at the end of your application. Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
+
+<a name="Cursor.Up"></a>
+### func \(\*Cursor\) [Up](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L31>)
+
+```go
+func (c *Cursor) Up(n int)
+```
+
+Up moves the cursor n lines up relative to the current position.
+
+<a name="Cursor.WithWriter"></a>
+### func \(\*Cursor\) [WithWriter](<https://github.com/atomicgo/cursor/blob/main/cursor.go#L23>)
+
+```go
+func (c *Cursor) WithWriter(w Writer) *Cursor
+```
+
+WithWriter allows for any arbitrary Writer to be used for cursor movement abstracted.
 
 <a name="Writer"></a>
-## type [Writer](<https://github.com/atomicgo/cursor/blob/main/utils.go#L79-L82>)
+## type [Writer](<https://github.com/atomicgo/cursor/blob/main/utils.go#L144-L147>)
 
 Writer is an expanded io.Writer interface with a file descriptor.
 
@@ -335,7 +589,6 @@ type Writer interface {
 ```
 
 Generated by [gomarkdoc](<https://github.com/princjef/gomarkdoc>)
-
 
 <!-- gomarkdoc:embed:end -->
 
