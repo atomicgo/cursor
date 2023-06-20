@@ -46,8 +46,6 @@ func (area *Area) Clear() {
 
 // Update overwrites the content of the Area.
 func (area *Area) Update(content string) {
-	oldWriter := target
-
 	SetTarget(area.writer) // Temporary set the target to the Area's writer so we can use the cursor functions
 	area.Clear()
 	fmt.Fprintln(area.writer, content)
