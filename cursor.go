@@ -5,25 +5,22 @@ package cursor
 
 import (
 	"fmt"
-	"io"
 	"os"
 )
-
-var cursor = &Cursor{writer: os.Stdout}
 
 // Cursor displays content which can be updated on the fly.
 // You can use this to create live output, charts, dropdowns, etc.
 type Cursor struct {
-	writer io.Writer
+	writer Writer
 }
 
 func NewCursor() *Cursor {
 	return &Cursor{writer: os.Stdout}
 }
 
-// WithWriter allows for any arbitrary io.Writer to be used
-// for cursor movement (will not work on Windows).
-func (c *Cursor) WithWriter(w io.Writer) *Cursor {
+// WithWriter allows for any arbitrary Writer to be used
+// for cursor movement abstracted.
+func (c *Cursor) WithWriter(w Writer) *Cursor {
 	if w != nil {
 		c.writer = w
 	}
@@ -87,66 +84,4 @@ func (c *Cursor) ClearLine() {
 // Clear clears the current position and moves the cursor to the left.
 func (c *Cursor) Clear() {
 	fmt.Fprintf(c.writer, "\x1b[K")
-}
-
-//
-// These only remain for compatibility for now
-//
-
-func SetTarget(w io.Writer) {
-	cursor = cursor.WithWriter(w)
-}
-
-// Up moves the cursor n lines up relative to the current position.
-func Up(n int) {
-	cursor.Up(n)
-	autoheight += n
-}
-
-// Down moves the cursor n lines down relative to the current position.
-func Down(n int) {
-	cursor.Down(n)
-	if autoheight > 0 {
-		autoheight -= n
-	}
-}
-
-// Right moves the cursor n characters to the right relative to the current position.
-func Right(n int) {
-	cursor.Right(n)
-}
-
-// Left moves the cursor n characters to the left relative to the current position.
-func Left(n int) {
-	cursor.Left(n)
-}
-
-// HorizontalAbsolute moves the cursor to n horizontally.
-// The position n is absolute to the start of the line.
-func HorizontalAbsolute(n int) {
-	cursor.HorizontalAbsolute(n)
-}
-
-// Show the cursor if it was hidden previously.
-// Don't forget to show the cursor at least at the end of your application.
-// Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
-func Show() {
-	cursor.Show()
-}
-
-// Hide the cursor.
-// Don't forget to show the cursor at least at the end of your application with Show.
-// Otherwise the user might have a terminal with a permanently hidden cursor, until they reopen the terminal.
-func Hide() {
-	cursor.Hide()
-}
-
-// ClearLine clears the current line and moves the cursor to it's start position.
-func ClearLine() {
-	cursor.ClearLine()
-}
-
-// Clear clears the current position and moves the cursor to the left.
-func Clear() {
-	cursor.Clear()
 }

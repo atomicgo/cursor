@@ -2,7 +2,6 @@ package cursor
 
 import (
 	"fmt"
-	"io"
 	"os"
 	"strings"
 )
@@ -11,7 +10,7 @@ import (
 // You can use this to create live output, charts, dropdowns, etc.
 type Area struct {
 	height     int
-	writer     io.Writer
+	writer     Writer
 	cursor     *Cursor
 	cursorPosY int
 }
@@ -25,7 +24,7 @@ func NewArea() *Area {
 }
 
 // WithWriter sets the custom writer
-func (area *Area) WithWriter(writer io.Writer) *Area {
+func (area *Area) WithWriter(writer Writer) *Area {
 	area.writer = writer
 	area.cursor = area.cursor.WithWriter(writer)
 	return area
