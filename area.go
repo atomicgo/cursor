@@ -2,7 +2,9 @@ package cursor
 
 import (
 	"fmt"
+	"io"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -10,7 +12,7 @@ import (
 // You can use this to create live output, charts, dropdowns, etc.
 type Area struct {
 	height     int
-	writer     Writer
+	writer     io.Writer
 	cursor     *Cursor
 	cursorPosY int
 }
@@ -24,7 +26,7 @@ func NewArea() *Area {
 }
 
 // WithWriter sets the custom writer
-func (area *Area) WithWriter(writer Writer) *Area {
+func (area *Area) WithWriter(writer io.Writer) *Area {
 	area.writer = writer
 	area.cursor = area.cursor.WithWriter(writer)
 	return area
@@ -32,8 +34,9 @@ func (area *Area) WithWriter(writer Writer) *Area {
 
 // Clear clears the content of the Area.
 func (area *Area) Clear() {
+	// Initialize writer if not done yet
 	if area.writer == nil {
-		area.writer = os.Stdin
+		area.writer = os.Stdout
 	}
 	if area.height > 0 {
 		area.Bottom()
@@ -45,12 +48,11 @@ func (area *Area) Clear() {
 
 // Update overwrites the content of the Area.
 func (area *Area) Update(content string) {
-	SetTarget(area.writer) // Temporary set the target to the Area's writer so we can use the cursor functions
 	area.Clear()
 	fmt.Fprintln(area.writer, content)
 	// Detect height of cursor area
 	area.height = strings.Count(content, "\n")
-	if strings.HasSuffix(content, "\n") {
+	if strings.HasSuffix(content, "\n") || runtime.GOOS == "windows" {
 		area.height++
 	}
 }
