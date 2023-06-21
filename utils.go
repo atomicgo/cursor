@@ -1,7 +1,6 @@
 package cursor
 
 import (
-	"io"
 	"os"
 )
 
@@ -138,10 +137,4 @@ func ClearLinesDown(n int) {
 	for i := 0; i < n; i++ {
 		DownAndClear(1)
 	}
-}
-
-// Writer is an expanded io.Writer interface with a file descriptor.
-type Writer interface {
-	io.Writer
-	Fd() uintptr
 }
