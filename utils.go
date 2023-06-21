@@ -1,6 +1,7 @@
 package cursor
 
 import (
+	"io"
 	"os"
 )
 
@@ -10,6 +11,12 @@ import (
 
 var autoheight int
 var cursor = &Cursor{writer: os.Stdout}
+
+// Writer is an expanded io.Writer interface with a file descriptor.
+type Writer interface {
+	io.Writer
+	Fd() uintptr
+}
 
 func SetTarget(w Writer) {
 	cursor = cursor.WithWriter(w)

@@ -13,12 +13,6 @@ type Cursor struct {
 	writer Writer
 }
 
-// Writer is an expanded io.Writer interface with a file descriptor.
-type Writer interface {
-	io.Writer
-	Fd() uintptr
-}
-
 func NewCursor() *Cursor {
 	return &Cursor{writer: os.Stdout}
 }
