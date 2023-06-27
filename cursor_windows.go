@@ -19,9 +19,9 @@ func NewCursor() *Cursor {
 
 // WithWriter allows for any arbitrary Writer to be used
 // for cursor movement abstracted.
-func (c *Cursor) WithWriter(w io.Writer) *Cursor {
+func (c *Cursor) WithWriter(w Writer) *Cursor {
 	if w != nil {
-		c.writer = w.(Writer)
+		c.writer = w
 	}
 	return c
 }
