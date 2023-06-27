@@ -3,7 +3,6 @@ package cursor
 import (
 	"fmt"
 	"os"
-	"runtime"
 	"strings"
 )
 
@@ -40,6 +39,7 @@ func (area *Area) Clear() {
 	if area.height > 0 {
 		area.Bottom()
 		area.ClearLinesUp(area.height)
+		area.StartOfLine()
 	} else {
 		area.cursor.ClearLine()
 	}
@@ -48,12 +48,9 @@ func (area *Area) Clear() {
 // Update overwrites the content of the Area.
 func (area *Area) Update(content string) {
 	area.Clear()
-	fmt.Fprintln(area.writer, content)
+	fmt.Fprint(area.writer, content)
 	// Detect height of cursor area
 	area.height = strings.Count(content, "\n")
-	if strings.HasSuffix(content, "\n") || runtime.GOOS == "windows" {
-		area.height++
-	}
 }
 
 // Up moves the cursor of the area up one line.
