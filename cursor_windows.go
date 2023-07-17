@@ -1,7 +1,6 @@
 package cursor
 
 import (
-	"io"
 	"os"
 	"syscall"
 	"unsafe"
