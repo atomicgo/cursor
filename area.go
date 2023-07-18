@@ -44,6 +44,7 @@ func (area *Area) Update(content string) {
 
 	SetTarget(area.writer) // Temporary set the target to the Area's writer so we can use the cursor functions
 	area.Clear()
+
 	lines := strings.Split(content, "\n")
 	fmt.Fprintln(area.writer, strings.Repeat("\n", len(lines)-1)) // This appends space if the terminal is at the bottom
 	Up(len(lines))
