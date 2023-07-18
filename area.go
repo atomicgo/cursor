@@ -3,6 +3,7 @@ package cursor
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
 )
 
@@ -44,7 +45,21 @@ func (area *Area) Update(content string) {
 	SetTarget(area.writer) // Temporary set the target to the Area's writer so we can use the cursor functions
 	area.Clear()
 	SetTarget(oldWriter) // Reset the target to the old writer
-	fmt.Fprintln(area.writer, content)
+	lines := strings.Split(content, "\n")
+	fmt.Println(strings.Repeat("\n", len(lines)-1))
+	Up(len(lines))
+
+	// Workaround for buggy behavior on Windows
+	if runtime.GOOS == "windows" {
+		for _, line := range lines {
+			fmt.Fprint(area.writer, line)
+			StartOfLineDown(1)
+		}
+	} else {
+		for _, line := range lines {
+			fmt.Fprintln(area.writer, line)
+		}
+	}
 
 	height = 0
 	area.height = len(strings.Split(content, "\n"))
