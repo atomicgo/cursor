@@ -276,7 +276,7 @@ func UpAndClear(n int)
 UpAndClear moves the cursor up by n lines, then clears the line.
 
 <a name="Area"></a>
-## type [Area](<https://github.com/atomicgo/cursor/blob/main/area.go#L11-L14>)
+## type [Area](<https://github.com/atomicgo/cursor/blob/main/area.go#L12-L15>)
 
 Area displays content which can be updated on the fly. You can use this to create live output, charts, dropdowns, etc.
 
@@ -287,7 +287,7 @@ type Area struct {
 ```
 
 <a name="NewArea"></a>
-### func [NewArea](<https://github.com/atomicgo/cursor/blob/main/area.go#L17>)
+### func [NewArea](<https://github.com/atomicgo/cursor/blob/main/area.go#L18>)
 
 ```go
 func NewArea() Area
@@ -296,7 +296,7 @@ func NewArea() Area
 NewArea returns a new Area.
 
 <a name="Area.Clear"></a>
-### func \(\*Area\) [Clear](<https://github.com/atomicgo/cursor/blob/main/area.go#L32>)
+### func \(\*Area\) [Clear](<https://github.com/atomicgo/cursor/blob/main/area.go#L33>)
 
 ```go
 func (area *Area) Clear()
@@ -305,7 +305,7 @@ func (area *Area) Clear()
 Clear clears the content of the Area.
 
 <a name="Area.Update"></a>
-### func \(\*Area\) [Update](<https://github.com/atomicgo/cursor/blob/main/area.go#L41>)
+### func \(\*Area\) [Update](<https://github.com/atomicgo/cursor/blob/main/area.go#L42>)
 
 ```go
 func (area *Area) Update(content string)
@@ -314,7 +314,7 @@ func (area *Area) Update(content string)
 Update overwrites the content of the Area.
 
 <a name="Area.WithWriter"></a>
-### func \(Area\) [WithWriter](<https://github.com/atomicgo/cursor/blob/main/area.go#L25>)
+### func \(Area\) [WithWriter](<https://github.com/atomicgo/cursor/blob/main/area.go#L26>)
 
 ```go
 func (area Area) WithWriter(writer Writer) Area
