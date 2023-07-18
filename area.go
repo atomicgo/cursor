@@ -44,10 +44,10 @@ func (area *Area) Update(content string) {
 
 	SetTarget(area.writer) // Temporary set the target to the Area's writer so we can use the cursor functions
 	area.Clear()
-	SetTarget(oldWriter) // Reset the target to the old writer
 	lines := strings.Split(content, "\n")
-	fmt.Println(strings.Repeat("\n", len(lines)-1))
+	fmt.Fprintln(area.writer, strings.Repeat("\n", len(lines)-1)) // This appends space if the terminal is at the bottom
 	Up(len(lines))
+	SetTarget(oldWriter) // Reset the target to the old writer
 
 	// Workaround for buggy behavior on Windows
 	if runtime.GOOS == "windows" {
