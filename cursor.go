@@ -14,6 +14,7 @@ type Cursor struct {
 	writer Writer
 }
 
+// NewCursor creates a new Cursor instance writing to os.Stdout
 func NewCursor() *Cursor {
 	return &Cursor{writer: os.Stdout}
 }
@@ -58,7 +59,7 @@ func (c *Cursor) Left(n int) {
 // HorizontalAbsolute moves the cursor to n horizontally.
 // The position n is absolute to the start of the line.
 func (c *Cursor) HorizontalAbsolute(n int) {
-	n += 1 // Moves the line to the character after n
+	n++ // Moves the line to the character after n
 	fmt.Fprintf(c.writer, "\x1b[%dG", n)
 }
 

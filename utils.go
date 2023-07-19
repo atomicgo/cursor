@@ -18,6 +18,8 @@ type Writer interface {
 	Fd() uintptr
 }
 
+// SetTarget sets to output target of the default curser to the
+// provided cursor.Writer (wrapping io.Writer)
 func SetTarget(w Writer) {
 	cursor = cursor.WithWriter(w)
 }
