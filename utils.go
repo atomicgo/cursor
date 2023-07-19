@@ -19,7 +19,7 @@ type Writer interface {
 }
 
 // SetTarget sets to output target of the default curser to the
-// provided cursor.Writer (wrapping io.Writer)
+// provided cursor.Writer (wrapping io.Writer).
 func SetTarget(w Writer) {
 	cursor = cursor.WithWriter(w)
 }
@@ -33,6 +33,7 @@ func Up(n int) {
 // Down moves the cursor n lines down relative to the current position.
 func Down(n int) {
 	cursor.Down(n)
+
 	if autoheight > 0 {
 		autoheight -= n
 	}
@@ -84,6 +85,7 @@ func Bottom() {
 	if autoheight > 0 {
 		Down(autoheight)
 		StartOfLine()
+
 		autoheight = 0
 	}
 }

@@ -18,15 +18,18 @@ type Area struct {
 // NewArea returns a new Area.
 func NewArea() Area {
 	return Area{
-		writer: os.Stdout,
-		cursor: cursor,
+		height:     0,
+		writer:     os.Stdout,
+		cursor:     cursor,
+		cursorPosY: 0,
 	}
 }
 
-// WithWriter sets the custom writer
+// WithWriter sets the custom writer.
 func (area Area) WithWriter(writer Writer) Area {
 	area.writer = writer
 	area.cursor = area.cursor.WithWriter(writer)
+
 	return area
 }
 
@@ -36,6 +39,7 @@ func (area *Area) Clear() {
 	if area.writer == nil {
 		area.writer = os.Stdout
 	}
+
 	if area.height > 0 {
 		area.Bottom()
 		area.ClearLinesUp(area.height)
@@ -59,6 +63,7 @@ func (area *Area) Up(n int) {
 		if area.cursorPosY+n > area.height {
 			n = area.height - area.cursorPosY - 1
 		}
+
 		area.cursor.Up(n)
 		area.cursorPosY += n
 	}
@@ -70,6 +75,7 @@ func (area *Area) Down(n int) {
 		if area.height-area.cursorPosY-n < 0 {
 			n = area.height - area.cursorPosY
 		}
+
 		area.cursor.Down(n)
 		area.cursorPosY -= n
 	}

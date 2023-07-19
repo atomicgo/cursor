@@ -14,7 +14,7 @@ type Cursor struct {
 	writer Writer
 }
 
-// NewCursor creates a new Cursor instance writing to os.Stdout
+// NewCursor creates a new Cursor instance writing to os.Stdout.
 func NewCursor() *Cursor {
 	return &Cursor{writer: os.Stdout}
 }
@@ -25,6 +25,7 @@ func (c *Cursor) WithWriter(w Writer) *Cursor {
 	if w != nil {
 		c.writer = w
 	}
+
 	return c
 }
 
