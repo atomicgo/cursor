@@ -1,9 +1,7 @@
 package cursor
 
 import (
-	"fmt"
 	"os"
-	"strings"
 )
 
 // Area displays content which can be updated on the fly.
@@ -48,14 +46,6 @@ func (area *Area) Clear() {
 		area.StartOfLine()
 		area.cursor.ClearLine()
 	}
-}
-
-// Update overwrites the content of the Area.
-func (area *Area) Update(content string) {
-	area.Clear()
-	fmt.Fprint(area.writer, content)
-	// Detect height of cursor area
-	area.height = strings.Count(content, "\n")
 }
 
 // Up moves the cursor of the area up one line.

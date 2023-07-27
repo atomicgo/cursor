@@ -1,29 +1,12 @@
+//go:build windows
+// +build windows
+
 package cursor
 
 import (
-	"os"
 	"syscall"
 	"unsafe"
 )
-
-// Cursor displays content which can be updated on the fly.
-// You can use this to create live output, charts, dropdowns, etc.
-type Cursor struct {
-	writer Writer
-}
-
-func NewCursor() *Cursor {
-	return &Cursor{writer: os.Stdout}
-}
-
-// WithWriter allows for any arbitrary Writer to be used
-// for cursor movement abstracted.
-func (c *Cursor) WithWriter(w Writer) *Cursor {
-	if w != nil {
-		c.writer = w
-	}
-	return c
-}
 
 // Up moves the cursor n lines up relative to the current position.
 func (c *Cursor) Up(n int) {
@@ -132,5 +115,4 @@ func (c *Cursor) Clear() {
 		cursor.x--
 	}
 	_, _, _ = procSetConsoleCursorPosition.Call(uintptr(handle), uintptr(*(*int32)(unsafe.Pointer(&cursor))))
-
 }
