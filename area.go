@@ -45,6 +45,7 @@ func (area *Area) Clear() {
 		area.ClearLinesUp(area.height)
 		area.StartOfLine()
 	} else {
+		area.StartOfLine()
 		area.cursor.ClearLine()
 	}
 }
