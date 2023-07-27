@@ -24,5 +24,7 @@ func main() {
 		time.Sleep(1 * time.Second)
 		area.Update(content)
 	}
-	fmt.Println("x\n--- DONE")
+
+	time.Sleep(1 * time.Second)
+	fmt.Println("\n--- DONE")
 }

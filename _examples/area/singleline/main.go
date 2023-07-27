@@ -18,5 +18,7 @@ func main() {
 		time.Sleep(1 * time.Second)
 		area.Update(fmt.Sprintf("%s: %d", header, i))
 	}
-	fmt.Println("x\n--- DONE")
+
+	time.Sleep(1 * time.Second)
+	fmt.Println("\n--- DONE")
 }

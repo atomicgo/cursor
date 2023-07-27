@@ -30,5 +30,6 @@ func main() {
 	lines[2] = "another line <--"
 	area.Update(strings.Join(lines, "\n"))
 
-	fmt.Println("\n<<< DONE")
+	time.Sleep(1 * time.Second)
+	fmt.Println("\n--- DONE")
 }
