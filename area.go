@@ -2,6 +2,7 @@ package cursor
 
 import (
 	"os"
+	"strings"
 )
 
 // Area displays content which can be updated on the fly.
@@ -48,6 +49,14 @@ func (area *Area) Clear() {
 	}
 }
 
+// Update overwrites the content of the Area and adjusts its height based on content.
+func (area *Area) Update(content string) {
+	area.Clear()
+	area.writeArea(content)
+	area.cursorPosY = 0
+	area.height = strings.Count(content, "\n")
+}
+
 // Up moves the cursor of the area up one line.
 func (area *Area) Up(n int) {
 	if n > 0 {
@@ -88,7 +97,7 @@ func (area *Area) Top() {
 	if area.cursorPosY < area.height {
 		area.Up(area.height - area.cursorPosY - 1)
 		area.StartOfLine()
-		area.cursorPosY = 0
+		area.cursorPosY = area.height
 	}
 }
 
