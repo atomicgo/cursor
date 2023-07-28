@@ -147,6 +147,7 @@ func (area *Area) Move(x, y int) {
 func (area *Area) ClearLinesUp(n int) {
 	area.StartOfLine()
 	area.cursor.ClearLine()
+
 	for i := 0; i < n; i++ {
 		area.UpAndClear(1)
 	}
@@ -156,6 +157,7 @@ func (area *Area) ClearLinesUp(n int) {
 func (area *Area) ClearLinesDown(n int) {
 	area.StartOfLine()
 	area.cursor.ClearLine()
+
 	for i := 0; i < n; i++ {
 		area.DownAndClear(1)
 	}
