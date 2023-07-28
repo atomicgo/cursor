@@ -8,10 +8,9 @@ import (
 	"strings"
 )
 
-// Update overwrites the content of the Area and adjusts its height based on content.
-// For Windows newlines '\n' in the content  are replaced by '\r\n'
-func (area *Area) Update(content string) {
-	area.Clear()
+// writeArea is a helper for platform dependant output.
+// For Windows newlines '\n' in the content are replaced by '\r\n'
+func (area *Area) writeArea(content string) {
 	last := ' '
 	for _, r := range content {
 		if r == '\n' && last != '\r' {
@@ -20,6 +19,4 @@ func (area *Area) Update(content string) {
 		}
 		fmt.Fprint(area.writer, string(r))
 	}
-	// Detect height of cursor area
-	area.height = strings.Count(content, "\n")
 }
