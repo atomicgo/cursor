@@ -26,6 +26,8 @@ func main() {
 		area.Update(content)
 	}
 
+	time.Sleep(1 * time.Second)
+	area.Update("Test varying area sizes now")
 	time.Sleep(500 * time.Millisecond)
 	area.Update(buildContent(1, 2))
 	time.Sleep(500 * time.Millisecond)

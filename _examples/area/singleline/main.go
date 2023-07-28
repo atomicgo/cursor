@@ -11,12 +11,20 @@ func main() {
 	fmt.Println("Single line cursor area demo")
 	fmt.Println("----------------------------")
 
-	header := "This is a singleline without newline"
 	area := cursor.NewArea()
+
+	header := "This is a singleline without newline"
 	area.Update(header)
-	for i := 1; i < 10; i++ {
+	for i := 1; i < 6; i++ {
 		time.Sleep(1 * time.Second)
 		area.Update(fmt.Sprintf("%s: %d", header, i))
+	}
+
+	header = "This is a singleline with newline"
+	area.Update(header + "\n")
+	for i := 1; i < 6; i++ {
+		time.Sleep(1 * time.Second)
+		area.Update(fmt.Sprintf("%s: %d\n", header, i))
 	}
 
 	time.Sleep(1 * time.Second)
