@@ -61,7 +61,7 @@ func (area *Area) Update(content string) {
 func (area *Area) Up(n int) {
 	if n > 0 {
 		if area.cursorPosY+n > area.height {
-			n = area.height - area.cursorPosY - 1
+			n = area.height - area.cursorPosY
 		}
 
 		area.cursor.Up(n)
@@ -72,7 +72,7 @@ func (area *Area) Up(n int) {
 // Down moves the cursor of the area down one line.
 func (area *Area) Down(n int) {
 	if n > 0 {
-		if area.height-area.cursorPosY-n < 0 {
+		if area.cursorPosY-n < 0 {
 			n = area.height - area.cursorPosY
 		}
 
@@ -86,7 +86,6 @@ func (area *Area) Down(n int) {
 func (area *Area) Bottom() {
 	if area.cursorPosY > 0 {
 		area.Down(area.cursorPosY)
-		area.StartOfLine()
 		area.cursorPosY = 0
 	}
 }
@@ -95,8 +94,7 @@ func (area *Area) Bottom() {
 // This is done by calculating how many lines were moved by Up and Down.
 func (area *Area) Top() {
 	if area.cursorPosY < area.height {
-		area.Up(area.height - area.cursorPosY - 1)
-		area.StartOfLine()
+		area.Up(area.height - area.cursorPosY)
 		area.cursorPosY = area.height
 	}
 }
@@ -120,14 +118,12 @@ func (area *Area) StartOfLineUp(n int) {
 
 // UpAndClear moves the cursor up by n lines, then clears the line.
 func (area *Area) UpAndClear(n int) {
-	area.cursor.ClearLine()
 	area.Up(n)
 	area.cursor.ClearLine()
 }
 
 // DownAndClear moves the cursor down by n lines, then clears the line.
 func (area *Area) DownAndClear(n int) {
-	area.cursor.ClearLine()
 	area.Down(n)
 	area.cursor.ClearLine()
 }
@@ -137,20 +133,20 @@ func (area *Area) Move(x, y int) {
 	if x > 0 {
 		area.cursor.Right(x)
 	} else if x < 0 {
-		x *= -1
-		area.cursor.Left(x)
+		area.cursor.Left(-x)
 	}
 
 	if y > 0 {
 		area.Up(y)
 	} else if y < 0 {
-		y *= -1
-		area.Down(y)
+		area.Down(-y)
 	}
 }
 
 // ClearLinesUp clears n lines upwards from the current position and moves the cursor.
 func (area *Area) ClearLinesUp(n int) {
+	area.StartOfLine()
+	area.cursor.ClearLine()
 	for i := 0; i < n; i++ {
 		area.UpAndClear(1)
 	}
@@ -158,6 +154,8 @@ func (area *Area) ClearLinesUp(n int) {
 
 // ClearLinesDown clears n lines downwards from the current position and moves the cursor.
 func (area *Area) ClearLinesDown(n int) {
+	area.StartOfLine()
+	area.cursor.ClearLine()
 	for i := 0; i < n; i++ {
 		area.DownAndClear(1)
 	}
