@@ -5,7 +5,6 @@ package cursor
 
 import (
 	"fmt"
-	"strings"
 )
 
 // writeArea is a helper for platform dependant output.
