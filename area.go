@@ -18,7 +18,7 @@ type Area struct {
 func NewArea() Area {
 	return Area{
 		height:     0,
-		writer:     os.Stdout,
+		writer:     cursor.writer,
 		cursor:     cursor,
 		cursorPosY: 0,
 	}
