@@ -1,97 +1,98 @@
 package cursor
 
 import (
-	"log"
 	"os"
 	"testing"
 )
 
 // TestCustomIOWriter tests the cursor functions with a custom Writer.
 func TestCustomIOWriter(t *testing.T) {
+	t.Parallel()
+
 	tmpFile, err := os.CreateTemp("", "testingTmpFile-")
 	defer os.Remove(tmpFile.Name())
 
 	if err != nil {
-		log.Fatal(err)
+		t.Error(err)
 	}
 
-	w := tmpFile
-	SetTarget(w)
+	target := tmpFile
+	SetTarget(target)
 
 	Up(2)
 
 	expected := "\x1b[2A"
-	actual := getFileContent(t, w.Name())
+	actual := getFileContent(t, target.Name())
 
 	if expected != actual {
 		t.Errorf("wanted: %v, got %v", expected, actual)
 	}
 
-	clearFile(t, w)
+	clearFile(t, target)
 	Down(2)
 
 	expected = "\x1b[2B"
-	actual = getFileContent(t, w.Name())
+	actual = getFileContent(t, target.Name())
 
 	if expected != actual {
 		t.Errorf("wanted: %v, got %v", expected, actual)
 	}
 
-	clearFile(t, w)
+	clearFile(t, target)
 	Right(2)
 
 	expected = "\x1b[2C"
-	actual = getFileContent(t, w.Name())
+	actual = getFileContent(t, target.Name())
 
 	if expected != actual {
 		t.Errorf("wanted: %v, got %v", expected, actual)
 	}
 
-	clearFile(t, w)
+	clearFile(t, target)
 	Left(2)
 
 	expected = "\x1b[2D"
-	actual = getFileContent(t, w.Name())
+	actual = getFileContent(t, target.Name())
 
 	if expected != actual {
 		t.Errorf("wanted: %v, got %v", expected, actual)
 	}
 
-	clearFile(t, w)
+	clearFile(t, target)
 	Hide()
 
 	expected = "\x1b[?25l"
-	actual = getFileContent(t, w.Name())
+	actual = getFileContent(t, target.Name())
 
 	if expected != actual {
 		t.Errorf("wanted: %v, got %v", expected, actual)
 	}
 
-	clearFile(t, w)
+	clearFile(t, target)
 	Show()
 
 	expected = "\x1b[?25h"
-	actual = getFileContent(t, w.Name())
+	actual = getFileContent(t, target.Name())
 
 	if expected != actual {
 		t.Errorf("wanted: %v, got %v", expected, actual)
 	}
 
-	clearFile(t, w)
+	clearFile(t, target)
 	ClearLine()
 
 	expected = "\x1b[2K"
-	actual = getFileContent(t, w.Name())
+	actual = getFileContent(t, target.Name())
 
 	if expected != actual {
 		t.Errorf("wanted: %v, got %v", expected, actual)
 	}
 
-	clearFile(t, w)
+	clearFile(t, target)
 	HorizontalAbsolute(3)
 
 	expected = "\x1b[4G"
-	actual = getFileContent(t, w.Name())
+	actual = getFileContent(t, target.Name())
 
 	if expected != actual {
 		t.Errorf("wanted: %v, got %v", expected, actual)

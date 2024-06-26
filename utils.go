@@ -9,8 +9,10 @@ import (
 // Helpers for global cursor handling on os.Stdout
 //
 
-var autoheight int
-var cursor = &Cursor{writer: os.Stdout}
+var (
+	autoheight int                          //nolint:gochecknoglobals
+	cursor     = &Cursor{writer: os.Stdout} //nolint:gochecknoglobals
+)
 
 // Writer is an expanded io.Writer interface with a file descriptor.
 type Writer interface {

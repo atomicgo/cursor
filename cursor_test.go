@@ -6,9 +6,12 @@ import (
 )
 
 func TestHeightChanges(t *testing.T) {
+	t.Parallel()
+
 	for i := 0; i < 4; i++ {
 		fmt.Println()
 	}
+
 	Up(3)
 
 	if autoheight != 3 {
@@ -23,6 +26,8 @@ func TestHeightChanges(t *testing.T) {
 }
 
 func TestHeightCannotBeNegative(t *testing.T) {
+	t.Parallel()
+
 	Down(10)
 
 	if autoheight < 0 {
