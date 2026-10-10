@@ -2,7 +2,7 @@ package cursor
 
 import (
 	"io"
-	"os"
+	"sync"
 )
 
 //
@@ -10,35 +10,52 @@ import (
 //
 
 var (
-	autoheight int                          //nolint:gochecknoglobals
-	cursor     = &Cursor{writer: os.Stdout} //nolint:gochecknoglobals
+	cursor = NewCursor() //nolint:gochecknoglobals // The package level helpers share one cursor.
+
+	// autoheightMu guards autoheight, the number of lines the global cursor was moved up.
+	autoheightMu sync.Mutex //nolint:gochecknoglobals // Guards autoheight.
+	autoheight   int        //nolint:gochecknoglobals // Used by Bottom.
 )
 
-// Writer is an expanded io.Writer interface with a file descriptor.
+// Writer is an io.Writer with a file descriptor, such as os.Stdout.
+//
+// Cursor and Area accept any io.Writer. A file descriptor is only used on
+// Windows, to move the cursor of legacy consoles that do not support ANSI
+// escape sequences.
 type Writer interface {
 	io.Writer
 	Fd() uintptr
 }
 
-// SetTarget sets to output target of the default curser to the
-// provided cursor.Writer (wrapping io.Writer).
-func SetTarget(w Writer) {
-	cursor = cursor.WithWriter(w)
+// SetTarget sets the output target of the default cursor to the provided writer.
+func SetTarget(w io.Writer) {
+	cursor.WithWriter(w)
 }
 
 // Up moves the cursor n lines up relative to the current position.
 func Up(n int) {
+	if n <= 0 {
+		return
+	}
+
+	autoheightMu.Lock()
+	defer autoheightMu.Unlock()
+
 	cursor.Up(n)
 	autoheight += n
 }
 
 // Down moves the cursor n lines down relative to the current position.
 func Down(n int) {
-	cursor.Down(n)
-
-	if autoheight > 0 {
-		autoheight -= n
+	if n <= 0 {
+		return
 	}
+
+	autoheightMu.Lock()
+	defer autoheightMu.Unlock()
+
+	cursor.Down(n)
+	autoheight = max(autoheight-n, 0)
 }
 
 // Right moves the cursor n characters to the right relative to the current position.
@@ -71,12 +88,12 @@ func Hide() {
 	cursor.Hide()
 }
 
-// ClearLine clears the current line and moves the cursor to it's start position.
+// ClearLine clears the current line.
 func ClearLine() {
 	cursor.ClearLine()
 }
 
-// Clear clears the current position and moves the cursor to the left.
+// Clear clears the line from the cursor position to its end.
 func Clear() {
 	cursor.Clear()
 }
@@ -84,11 +101,13 @@ func Clear() {
 // Bottom moves the cursor to the bottom of the terminal.
 // This is done by calculating how many lines were moved by Up and Down.
 func Bottom() {
-	if autoheight > 0 {
-		Down(autoheight)
-		StartOfLine()
+	autoheightMu.Lock()
+	n := autoheight
+	autoheightMu.Unlock()
 
-		autoheight = 0
+	if n > 0 {
+		Down(n)
+		StartOfLine()
 	}
 }
 
@@ -126,28 +145,26 @@ func Move(x, y int) {
 	if x > 0 {
 		Right(x)
 	} else if x < 0 {
-		x *= -1
-		Left(x)
+		Left(-x)
 	}
 
 	if y > 0 {
 		Up(y)
 	} else if y < 0 {
-		y *= -1
-		Down(y)
+		Down(-y)
 	}
 }
 
 // ClearLinesUp clears n lines upwards from the current position and moves the cursor.
 func ClearLinesUp(n int) {
-	for i := 0; i < n; i++ {
+	for range n {
 		UpAndClear(1)
 	}
 }
 
 // ClearLinesDown clears n lines downwards from the current position and moves the cursor.
 func ClearLinesDown(n int) {
-	for i := 0; i < n; i++ {
+	for range n {
 		DownAndClear(1)
 	}
 }
